@@ -41,17 +41,9 @@ export function SoftwareDevelopmentCtaSection() {
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Button asChild className="shadow-none" size="lg">
                 <a href="/contact">
-                  Start a Conversation
+                  Start a conversation
                   <ArrowRight className="size-5" aria-hidden="true" />
                 </a>
-              </Button>
-              <Button
-                asChild
-                className="border-[#dfe5ec] bg-white text-[#003466] shadow-none hover:bg-[#f7fbff]"
-                size="lg"
-                variant="secondary"
-              >
-                <a href="#services">Explore Services</a>
               </Button>
             </div>
           </div>

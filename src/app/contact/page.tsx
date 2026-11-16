@@ -7,7 +7,7 @@ import { ContactPage } from "@/components/sections/contact/contact-page";
 export const metadata: Metadata = {
   title: "Contact Tidewrk",
   description:
-    "Share your project details with Tidewrk and our team will follow up within 1 business day.",
+    "Tidewrk embeds developers, operators, and support inside your business, backed by redundancy, built to stay, and yours to direct.",
 };
 
 export default function ContactRoute() {

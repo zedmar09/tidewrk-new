@@ -27,14 +27,8 @@ export function BusinessIntelligenceCtaSection() {
               className="inline-flex h-14 w-full items-center justify-center gap-2 bg-[#003466] px-8 text-lg font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#00284f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#003466]/40 sm:w-auto"
               href="/contact"
             >
-              Talk to Tidewrk
+              Start a conversation
               <ArrowRight className="size-5" aria-hidden="true" />
-            </Link>
-            <Link
-              className="inline-flex h-14 w-full items-center justify-center border border-[#dfe5ec] bg-white px-8 text-lg font-semibold text-[#003466] transition duration-300 hover:-translate-y-0.5 hover:bg-[#f7fbff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#003466]/30 sm:w-auto"
-              href="/#services"
-            >
-              Explore Services
             </Link>
           </div>
 

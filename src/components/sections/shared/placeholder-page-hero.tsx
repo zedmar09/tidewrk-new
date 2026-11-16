@@ -51,7 +51,7 @@ export function PlaceholderPageHero({
               className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-5 text-sm font-semibold text-[#003f72] transition hover:bg-white/88"
               href="/contact"
             >
-              Talk to Tidewrk
+              Start a conversation
               <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
           </div>

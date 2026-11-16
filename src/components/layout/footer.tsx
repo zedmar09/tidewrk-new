@@ -1,34 +1,49 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUp } from "lucide-react";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaXTwitter,
-} from "react-icons/fa6";
 
 import tidewrkLogo from "@/assets/images/tidewrk-logo.svg";
+import { CtaLink } from "@/components/ui/cta-link";
+import {
+  capabilityItems,
+  routes,
+  showOurWork,
+  whatWeDoItems,
+} from "@/constants/navigation";
 
-const footerLinks = [
-  { label: "Services", href: "/#services" },
-  { label: "Solutions", href: "/#solutions" },
-  { label: "Careers", href: "#careers" },
-  { label: "About Us", href: "/about-us" },
+const footerColumns = [
+  {
+    title: "What we do",
+    links: whatWeDoItems.map(({ label, href }) => ({
+      label: label.charAt(0) + label.slice(1).toLowerCase(),
+      href,
+    })),
+  },
+  {
+    title: "Capabilities",
+    links: [...capabilityItems],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "How we work", href: routes.howWeWork },
+      ...(showOurWork ? [{ label: "Our work", href: routes.ourWork }] : []),
+      { label: "About", href: routes.about },
+      { label: "Careers", href: routes.careers },
+      { label: "Contact", href: routes.contact },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { label: "Privacy policy", href: routes.privacy },
+      { label: "Terms of service", href: routes.terms },
+      { label: "Cookie settings", href: routes.cookies },
+    ],
+  },
 ];
 
-const policyLinks = [
-  { label: "Privacy Policy", href: "#privacy-policy" },
-  { label: "Terms of Service", href: "#terms-of-service" },
-  { label: "Cookie Settings", href: "#cookie-settings" },
-];
-
-const socialLinks = [
-  { label: "LinkedIn", href: "#", icon: FaLinkedinIn },
-  { label: "Instagram", href: "#", icon: FaInstagram },
-  { label: "Facebook", href: "#", icon: FaFacebookF },
-  { label: "X", href: "#", icon: FaXTwitter },
-];
+// Social icons are left out until each one has a real account URL behind it.
 
 export function Footer() {
   return (
@@ -46,22 +61,22 @@ export function Footer() {
       />
 
       <div className="relative mx-auto max-w-[1800px] rounded-[1.1rem] bg-black/16 px-5 py-12 shadow-[0_34px_120px_rgba(0,0,0,0.18)] backdrop-blur-[2px] sm:px-8 sm:py-16 lg:px-14 lg:py-20">
-        <Link
-          aria-label="Talk to Tidewrk about your next move"
-          className="group mx-auto block max-w-3xl py-8 text-center outline-none sm:py-10 lg:py-12"
-          href="/contact"
-        >
-          <h2 className="text-balance text-[2rem] font-semibold leading-[1.06] tracking-normal text-white transition group-hover:text-white/92 sm:text-5xl lg:text-[3.7rem]">
-            Ready for your{" "}
-            <span className="tidewrk-glow-text">next move</span>?{" "}
-            <span className="text-white/52 transition group-hover:text-white/68">
-              Let&apos;s start the current behind it.
-            </span>
+        <div className="mx-auto max-w-3xl py-8 text-center sm:py-10 lg:py-12">
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-white/50">
+            The tide behind you.
+          </p>
+          <h2 className="mt-5 text-balance text-[2rem] font-semibold leading-[1.06] tracking-normal text-white sm:text-5xl lg:text-[3.7rem]">
+            Ready for your next move?
           </h2>
-        </Link>
+          <p className="mx-auto mt-5 max-w-2xl text-pretty text-lg leading-8 text-white/64 sm:text-xl">
+            More to build and run than you can hire for? Tell us what
+            you&apos;re trying to deliver.
+          </p>
+          <CtaLink className="mt-8" size="lg" />
+        </div>
 
-        <div className="mt-20 grid gap-10 lg:mt-24 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div className="max-w-md">
+        <div className="mt-16 grid gap-10 border-t border-white/10 pt-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4 xl:grid-cols-[minmax(16rem,1.2fr)_repeat(4,minmax(0,1fr))]">
+          <div className="max-w-sm sm:col-span-2 lg:col-span-4 xl:col-span-1">
             <Link
               aria-label="Go to Tidewrk home page"
               className="inline-flex"
@@ -74,72 +89,47 @@ export function Footer() {
                 src={tidewrkLogo}
               />
             </Link>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-white/54">
-              The current behind sharper teams, smarter systems, and the work
-              your business moves next.
+            <p className="mt-5 text-base font-semibold text-white">
+              The tide behind you.
             </p>
-
-            <div className="mt-7 flex items-center gap-4">
-              {socialLinks.map((link) => {
-                const Icon = link.icon;
-
-                return (
-                  <a
-                    aria-label={link.label}
-                    className="flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.055] text-white/78 transition hover:border-[#003f72]/70 hover:bg-[#003f72]/18 hover:text-white hover:shadow-[0_0_20px_rgba(0,63,114,0.48)]"
-                    href={link.href}
-                    key={link.label}
-                  >
-                    <Icon className="size-4" aria-hidden="true" />
-                  </a>
-                );
-              })}
-            </div>
+            <p className="mt-2 text-sm leading-6 text-white/54">
+              Developers, operators, and support embedded in your business.
+              Built in the Philippines, working inside your team.
+            </p>
           </div>
 
-          <div className="flex flex-col items-start gap-6 lg:items-end">
-            <Link
-              aria-label="Back to top"
-              className="flex size-11 items-center justify-center rounded-full border border-white/14 bg-white text-[#003f72] transition hover:-translate-y-1 hover:bg-white/88"
-              href="#top"
-            >
-              <ArrowUp className="size-5" aria-hidden="true" />
-            </Link>
-
-            <nav
-              aria-label="Footer navigation"
-              className="flex flex-wrap gap-x-7 gap-y-3 text-sm font-medium text-white/72 lg:justify-end"
-            >
-              {footerLinks.map((link) => (
-                <Link
-                  className="transition hover:text-white hover:[text-shadow:0_0_18px_rgba(0,63,114,0.9)]"
-                  href={link.href}
-                  key={link.label}
-                >
-                  {link.label}
-                </Link>
-              ))}
+          {footerColumns.map((column) => (
+            <nav aria-label={column.title} key={column.title}>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/44">
+                {column.title}
+              </p>
+              <ul className="mt-4 space-y-3 text-sm text-white/72">
+                {column.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      className="transition hover:text-white"
+                      href={link.href}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </nav>
-
-            <nav
-              aria-label="Footer policies"
-              className="flex flex-wrap gap-x-6 gap-y-3 text-xs text-white/46 lg:justify-end"
-            >
-              {policyLinks.map((link) => (
-                <a
-                  className="transition hover:text-white/78"
-                  href={link.href}
-                  key={link.label}
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-          </div>
+          ))}
         </div>
 
-        <div className="mt-9 pt-3 text-center text-xs text-white/42">
-          <p>© 2026 Tidewrk. All rights reserved.</p>
+        <div className="mt-12 flex flex-col-reverse items-center justify-between gap-6 border-t border-white/10 pt-6 sm:flex-row">
+          <p className="text-xs text-white/42">
+            © 2026 Tidewrk. All rights reserved.
+          </p>
+          <Link
+            aria-label="Back to top"
+            className="flex size-11 items-center justify-center rounded-full border border-white/14 bg-white text-[#003f72] transition hover:-translate-y-1 hover:bg-white/88"
+            href="#top"
+          >
+            <ArrowUp className="size-5" aria-hidden="true" />
+          </Link>
         </div>
       </div>
     </footer>

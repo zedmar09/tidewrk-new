@@ -10,7 +10,7 @@ export const heroContent: HeroContent = {
   description:
     "Strategic talent, smarter systems, and practical AI support built to keep your business moving.",
   primaryCta: {
-    label: "Talk to Tidewrk",
+    label: "Start a conversation",
     href: "/contact",
   },
   secondaryCta: {

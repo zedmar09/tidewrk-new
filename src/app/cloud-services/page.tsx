@@ -1,15 +1,12 @@
-import { Footer } from "@/components/layout/footer";
-import { Navbar } from "@/components/layout/navbar";
-import { PlaceholderPageHero } from "@/components/sections/shared/placeholder-page-hero";
+import {
+  CapabilityPage,
+  capabilityMetadata,
+} from "@/components/sections/capability-page/capability-page";
+
+const href = "/cloud-services";
+
+export const metadata = capabilityMetadata(href);
 
 export default function CloudServicesPage() {
-  return (
-    <>
-      <Navbar />
-      <main>
-        <PlaceholderPageHero title="Cloud Services Page" eyebrow="Solution" />
-      </main>
-      <Footer />
-    </>
-  );
+  return <CapabilityPage href={href} />;
 }

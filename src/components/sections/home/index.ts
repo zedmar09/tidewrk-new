@@ -1,8 +1,13 @@
+export { AiWorkflowSection } from "./ai-workflow-section";
 export { ClientListSection } from "./client-list-section";
 export { CtaSection } from "./cta-section";
-export { AiWorkflowSection } from "./ai-workflow-section";
 export { FeaturesSection } from "./features-section";
+export { GuideSection } from "./guide-section";
 export { HeroSection } from "./hero-section";
+export { PlanSection } from "./plan-section";
+export { ProblemSection } from "./problem-section";
+export { PromisesSection } from "./promises-section";
+export { ProofSection } from "./proof-section";
 export { SolutionsSection } from "./solutions-section";
 export { TestimonialsSection } from "./testimonials-section";
 export { WhereTidewrkFitsSection } from "./where-tidewrk-fits-section";

@@ -1,41 +1,32 @@
-import Link from "next/link";
-import {
-  ArrowRight,
-  Blocks,
-  CheckCircle2,
-  Compass,
-  Handshake,
-  Workflow,
-} from "lucide-react";
+import { CheckCircle2, Compass, Workflow } from "lucide-react";
 
+import { CtaLink } from "@/components/ui/cta-link";
+
+// Values: kept from the current site with light edits (Website Direction §5.8).
 const values = [
   {
     title: "Move with purpose",
-    description:
-      "We help teams focus on the next practical step, not noise, complexity, or work that looks busy but does not move the business.",
+    description: "The next practical step, not noise or busywork.",
     icon: Compass,
   },
   {
     title: "Build around the work",
     description:
-      "People, workflows, and technology should support how the business actually operates, not force teams into rigid templates.",
+      "People, workflows, and technology shaped around how your business actually runs.",
     icon: Workflow,
   },
   {
     title: "Stay accountable",
     description:
-      "Clear ownership, steady communication, and reliable follow-through matter as much as the solution itself.",
+      "A named person behind every piece of work, clear communication, and follow-through.",
     icon: CheckCircle2,
   },
 ];
 
-const capabilities = [
-  "Software and product delivery",
-  "Staff augmentation and Virtual Assistants",
-  "Business intelligence and data support",
-  "Remote team capacity",
-  "Executive advisory and modernization guidance",
-  "Workflow improvement and practical automation",
+// TODO(client): confirm the current team count with HR.
+const numbers = [
+  { value: "100+", label: "team members and growing" },
+  { value: "3", label: "offices: South Carolina, New York, and Manila" },
 ];
 
 export function AboutUsPage() {
@@ -61,67 +52,56 @@ export function AboutUsPage() {
             </div>
 
             <h1 className="mt-8 max-w-5xl text-balance text-[3.5rem] font-semibold leading-[0.98] tracking-normal text-white sm:text-7xl lg:text-[6.2rem]">
-              The current behind{" "}
-              <span className="tidewrk-glow-text">work that moves</span>
+              Built on three coasts.{" "}
+              <span className="tidewrk-glow-text">Working inside your team.</span>
             </h1>
           </div>
 
           <div className="max-w-3xl lg:pb-3">
             <p className="text-pretty text-xl leading-9 text-white/68 sm:text-2xl sm:leading-10">
-              Tidewrk helps businesses add the people, systems, and execution
-              support behind their next move. We bring practical talent,
-              software, data, operations, and advisory support together so
-              teams can move with more confidence.
+              Tidewrk&apos;s roots run from Long Island to Charleston to the
+              Philippines. We embed developers, operators, and support inside
+              growing businesses, and we build so the people we hire have
+              careers, not gigs.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                className="inline-flex h-[3.25rem] items-center justify-center gap-2 rounded-full bg-white px-6 text-base font-semibold text-[#003f72] transition hover:-translate-y-0.5 hover:bg-white/88"
-                href="/contact"
-              >
-                Talk to Tidewrk
-                <ArrowRight className="size-4" aria-hidden="true" />
-              </Link>
-              <Link
-                className="inline-flex h-[3.25rem] items-center justify-center rounded-full border border-white/14 bg-white/8 px-6 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/14"
-                href="/#solutions"
-              >
-                Explore Solutions
-              </Link>
-            </div>
+            <CtaLink className="mt-8" size="lg" />
           </div>
         </div>
       </section>
+
+      {/* TODO(client): "The name" section needs the three-coasts story from the
+          rebrand announcement (short), and leadership bios are still open (MJE / John). */}
 
       <section className="relative px-5 py-14 sm:px-8 md:py-20 lg:px-[6vw]">
         <div className="mx-auto grid max-w-[1500px] gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-white/42">
-              What we do
+              Our mission
             </p>
             <h2 className="mt-4 max-w-3xl text-balance text-4xl font-semibold leading-tight text-white sm:text-5xl">
-              We help teams carry important work forward.
+              Building careers and community in the Philippines.
             </h2>
           </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            {capabilities.map((capability) => (
-              <div
-                className="flex items-center gap-3 rounded-[1rem] border border-white/10 bg-white/[0.045] p-4 text-base font-semibold text-white/78"
-                key={capability}
-              >
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[#003f72]/50 bg-[#003f72]/20 text-white shadow-[0_0_22px_rgba(0,63,114,0.35)]">
-                  <Blocks className="size-4" aria-hidden="true" />
-                </span>
-                {capability}
-              </div>
-            ))}
+          <div className="space-y-6 text-pretty text-xl leading-9 text-white/68">
+            <p>
+              Tidewrk was built in the Philippines on purpose. Employing and
+              developing people is part of the mission.
+            </p>
+            <p>
+              The people we hire are employees with career paths, not
+              freelancers between gigs. That&apos;s what makes us a company,
+              not a marketplace.
+            </p>
           </div>
         </div>
       </section>
 
       <section className="relative px-5 pb-20 pt-4 sm:px-8 sm:pb-28 lg:px-[6vw]">
         <div className="mx-auto max-w-[1500px]">
-          <div className="grid gap-5 lg:grid-cols-3">
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-white/42">
+            Our values
+          </p>
+          <div className="mt-6 grid gap-5 lg:grid-cols-3">
             {values.map((value) => {
               const ValueIcon = value.icon;
 
@@ -144,29 +124,41 @@ export function AboutUsPage() {
             })}
           </div>
 
-          <div className="mt-5 rounded-[1.35rem] border border-white/10 bg-white/[0.045] p-6 backdrop-blur-xl sm:p-8 lg:p-10">
-            <div className="grid gap-8 lg:grid-cols-[0.7fr_1fr] lg:items-center">
-              <div className="flex items-center gap-4">
-                <span className="flex size-14 shrink-0 items-center justify-center rounded-full border border-[#003f72]/50 bg-[#003f72]/22 text-white shadow-[0_0_18px_rgba(255,255,255,0.12),0_0_34px_rgba(0,63,114,0.45)]">
-                  <Handshake className="size-6" aria-hidden="true" />
-                </span>
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.14em] text-white/42">
-                    Why Tidewrk
+          <div className="mt-16 border-t border-white/10 pt-12">
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-white/42">
+              By the numbers
+            </p>
+            <div className="mt-8 grid gap-8 sm:grid-cols-2">
+              {numbers.map((item) => (
+                <div key={item.label}>
+                  <p className="tidewrk-glow-text text-6xl font-semibold leading-none">
+                    {item.value}
                   </p>
-                  <h2 className="mt-2 text-3xl font-semibold leading-tight text-white">
-                    A partner for the work between idea and progress.
-                  </h2>
+                  <p className="mt-3 text-lg text-white/62">{item.label}</p>
                 </div>
-              </div>
-              <p className="text-lg leading-8 text-white/62 sm:text-xl sm:leading-9">
-                Businesses do not always need another tool, another vendor, or
-                another plan. Often, they need the right current behind the work:
-                capable people, practical systems, and steady execution aligned
-                around what needs to happen next.
-              </p>
+              ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* TODO(client): confirm where HR takes applications, then link to it. */}
+      <section
+        className="relative scroll-mt-24 px-5 pb-20 sm:px-8 sm:pb-28 lg:px-[6vw]"
+        id="careers"
+      >
+        <div className="mx-auto max-w-[1500px] border-t border-white/10 pt-12">
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-white/42">
+            Careers
+          </p>
+          <h2 className="mt-3 max-w-3xl text-3xl font-semibold leading-tight text-white">
+            Careers, not gigs.
+          </h2>
+          <p className="mt-4 max-w-3xl text-lg leading-8 text-white/62">
+            We&apos;re building careers and community in the Philippines. If
+            you want to grow with a team that stays, we&apos;d like to hear
+            from you.
+          </p>
         </div>
       </section>
     </main>

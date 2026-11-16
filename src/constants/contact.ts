@@ -1,12 +1,13 @@
 export const contactIntro =
-  "Tell us what you’re building or where work needs to move faster. Tidewrk brings the people, systems, and steady execution behind your next move, and we’ll respond within 1 business day.";
+  "Tell us what you’re trying to deliver. We’ll get back to you within one business day.";
 
+// "What brings you here?" options, matching the four routes (Website Direction §5.9).
 export const serviceOptions = [
-  "Software Development",
-  "Software Outsourcing",
-  "Staff Augmentation",
-  "Virtual Assistants / Business Administration",
-  "Executive Advisory & Consulting",
+  "Build a product",
+  "Scale my engineering team",
+  "Support my back office",
+  "Free up my time",
+  "Not sure yet",
 ] as const;
 
 export const contactLocations = [

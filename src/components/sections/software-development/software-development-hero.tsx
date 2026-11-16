@@ -78,15 +78,8 @@ export function SoftwareDevelopmentHero() {
               className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-base font-semibold text-[#003f72] transition duration-300 hover:-translate-y-0.5 hover:bg-white/90 sm:h-14 sm:px-8"
               href="/contact"
             >
-              Talk to Tidewrk
+              Start a conversation
               <Sparkles className="size-5" aria-hidden="true" />
-            </Link>
-            <Link
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/18 bg-white/6 px-6 text-base font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-white/12 sm:h-14 sm:px-8"
-              href="#services"
-            >
-              Explore Solutions
-              <ArrowRight className="size-5" aria-hidden="true" />
             </Link>
           </div>
         </div>

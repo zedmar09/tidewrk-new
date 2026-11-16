@@ -33,7 +33,7 @@ export function StaffAugmentationCtaSection() {
               className="inline-flex h-14 w-full items-center justify-center gap-2 bg-[#003466] px-8 text-lg font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#00284f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#003466]/40 sm:w-auto"
               href="/contact"
             >
-              Talk to Tidewrk
+              Start a conversation
               <ArrowRight className="size-5" aria-hidden="true" />
             </Link>
             <Link

@@ -7,7 +7,7 @@ import { AboutUsPage } from "@/components/sections/about-us/about-us-page";
 export const metadata: Metadata = {
   title: "About Us | Tidewrk",
   description:
-    "Learn how Tidewrk helps businesses add the people, systems, and execution support behind their next move.",
+    "Tidewrk embeds developers, operators, and support inside your business, backed by redundancy, built to stay, and yours to direct.",
 };
 
 export default function AboutUsRoute() {

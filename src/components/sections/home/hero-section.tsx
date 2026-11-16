@@ -1,14 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowRight, Play, Sparkles } from "lucide-react";
-import { TypeAnimation } from "react-type-animation";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useEffect, useState } from "react";
 
-import { heroContent, whyTidewrkContent } from "@/constants/landing-page";
-
-const heroStats = whyTidewrkContent.stats.filter(
-  (stat) => stat.label !== "Years of Partnership",
-);
+import { CtaLink } from "@/components/ui/cta-link";
 
 const wavePaths = [
   "M-560 720 C-220 610 20 720 170 520 C340 294 512 378 680 500 C842 618 1012 432 1192 318 C1394 190 1596 232 2040 54",
@@ -25,14 +20,41 @@ const wavePaths = [
   "M-560 456 C-66 434 262 500 434 322 C604 162 688 246 900 302 C1106 354 1254 256 1456 164 C1592 124 1948 34 2040 -78",
 ];
 
-const heroTaglines = [
-  "The Current\nBehind You",
-  "The current behind your work",
-  "The current behind the work that flows",
-  "The current behind your next move",
+// Rotator: "The tide behind" stays fixed, the whole ending swaps.
+// Runs once and holds on "you."
+const rotatorEndings = [
+  "your roadmap.",
+  "your launch.",
+  "your back office.",
+  "your next move.",
+  "you.",
 ];
 
+const ROTATE_EVERY_MS = 2200;
+
+function useRotatorIndex(length: number, disabled: boolean) {
+  const [index, setIndex] = useState(0);
+  const finalIndex = length - 1;
+
+  useEffect(() => {
+    if (disabled || index >= finalIndex) return;
+
+    const timeoutId = window.setTimeout(
+      () => setIndex((current) => Math.min(current + 1, finalIndex)),
+      ROTATE_EVERY_MS,
+    );
+
+    return () => window.clearTimeout(timeoutId);
+  }, [disabled, finalIndex, index]);
+
+  return disabled ? finalIndex : index;
+}
+
 export function HeroSection() {
+  const reduceMotion = useReducedMotion() ?? false;
+  const index = useRotatorIndex(rotatorEndings.length, reduceMotion);
+  const ending = rotatorEndings[index];
+
   return (
     <section className="relative z-0 min-h-[100svh] overflow-hidden bg-[#02050a] px-5 pb-6 pt-[4.75rem] text-white sm:px-8 sm:pt-20 lg:px-[6vw]">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,63,114,0.78),transparent_45%),radial-gradient(ellipse_at_50%_20%,rgba(0,63,114,0.32),transparent_32%),linear-gradient(180deg,#02050a_0%,#07111f_46%,#02050a_100%)]" />
@@ -78,100 +100,41 @@ export function HeroSection() {
         ))}
       </svg>
 
-      <div className="relative mx-auto flex min-h-[calc(100svh-4.75rem)] w-full max-w-[1900px] flex-col items-center justify-start pb-8 pt-[clamp(2rem,7svh,6rem)] text-center sm:min-h-[calc(100svh-5rem)] sm:pb-10 sm:pt-[clamp(2.75rem,9svh,6rem)] lg:pb-12">
-        <div className="mx-auto flex w-full max-w-5xl flex-col items-center">
-          <div className="inline-flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full border border-white/10 bg-white/8 px-3 py-2 text-center text-xs font-medium text-white/78 shadow-[0_14px_50px_rgba(0,0,0,0.18)] backdrop-blur-md sm:px-4 sm:text-sm">
-            <span className="tidewrk-glow-badge rounded-full px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.08em]">
-              Tidewrk
+      <div className="relative mx-auto flex min-h-[calc(100svh-4.75rem)] w-full max-w-[1900px] flex-col items-center justify-center pb-16 text-center sm:min-h-[calc(100svh-5rem)]">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center">
+          <h1 className="w-full text-balance text-[clamp(2.4rem,11vw,3.4rem)] font-semibold leading-[1.04] tracking-normal text-white sm:text-7xl sm:leading-[1.02] lg:text-[5.4rem] xl:text-[6.2rem]">
+            <span className="sr-only">The tide behind you.</span>
+            <span aria-hidden="true" className="block">
+              The tide behind
             </span>
-            {heroContent.eyebrow}
-            <ArrowRight className="size-4 text-white/60" aria-hidden="true" />
-          </div>
-
-          <h1
-            aria-label={heroContent.headline}
-            className="mt-7 w-full max-w-6xl text-balance text-[clamp(2.25rem,12vw,3.15rem)] font-semibold leading-[1.04] tracking-normal text-white sm:text-6xl sm:leading-[1.02] lg:text-[4.55rem] xl:text-[5.25rem]"
-          >
-            <span
-              aria-hidden="true"
-              className="tidewrk-glow-text hero-typing-slot block min-h-[3.12em] w-full overflow-hidden sm:min-h-[2.08em] lg:min-h-[2.04em]"
-            >
-              <TypeAnimation
-                className="inline-block max-w-full whitespace-pre-line break-words"
-                cursor={false}
-                deletionSpeed={{ type: "keyStrokeDelayInMs", value: 34 }}
-                preRenderFirstString={true}
-                repeat={Infinity}
-                sequence={[
-                  heroTaglines[0],
-                  1700,
-                  heroTaglines[1],
-                  1700,
-                  heroTaglines[2],
-                  1700,
-                  heroTaglines[3],
-                  1700,
-                ]}
-                speed={{ type: "keyStrokeDelayInMs", value: 52 }}
-                wrapper="span"
-              />
+            <span aria-hidden="true" className="grid overflow-hidden">
+              {/* Invisible copies reserve the height of the longest ending, so wrapping never clips. */}
+              {rotatorEndings.map((text) => (
+                <span className="invisible [grid-area:1/1]" key={text}>
+                  {text}
+                </span>
+              ))}
+              <AnimatePresence initial={false} mode="wait">
+                <motion.span
+                  animate={{ opacity: 1, y: "0%" }}
+                  className="tidewrk-glow-text self-center [grid-area:1/1]"
+                  exit={{ opacity: 0, y: "-60%" }}
+                  initial={{ opacity: 0, y: "60%" }}
+                  key={ending}
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {ending}
+                </motion.span>
+              </AnimatePresence>
             </span>
           </h1>
 
-          <p className="mt-5 max-w-4xl text-pretty text-xl leading-9 text-white/70 sm:mt-6 sm:text-2xl sm:leading-10">
-            {heroContent.description}
+          <p className="mt-7 max-w-4xl text-pretty text-xl leading-9 text-white/72 sm:text-2xl sm:leading-10">
+            Tidewrk embeds developers, operators, and support inside your
+            business, backed by redundancy, built to stay, and yours to direct.
           </p>
 
-          <div className="mt-7 flex w-full max-w-sm flex-col items-center justify-center gap-3 sm:mt-8 sm:w-auto sm:max-w-none sm:flex-row">
-            <Link
-              className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-white/18 bg-white px-6 text-base font-semibold text-[#003f72] backdrop-blur-md transition duration-300 hover:-translate-y-0.5 hover:bg-[#f5f9fd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 sm:h-14 sm:w-auto sm:px-8 sm:text-lg"
-              href={heroContent.secondaryCta.href}
-            >
-              <Play className="size-5 fill-[#003f72]/10" aria-hidden="true" />
-              {heroContent.secondaryCta.label}
-            </Link>
-          </div>
-        </div>
-
-        <div className="relative mt-auto grid w-full gap-4 pt-12 sm:gap-5 sm:pt-16 md:grid-cols-[1fr_auto] md:items-center md:pt-20 lg:pt-24">
-          <div className="grid w-full max-w-2xl grid-cols-3 items-start gap-3 text-center sm:gap-5 md:justify-self-start">
-            {heroStats.map((stat) => (
-              <div key={stat.label} className="mx-auto w-full max-w-44">
-                <p className="text-3xl font-semibold leading-none text-white/88 sm:text-5xl">
-                  {stat.value}
-                  <span className="tidewrk-glow-text">
-                    {stat.suffix}
-                  </span>
-                </p>
-                <p className="mx-auto mt-2 max-w-32 text-[0.68rem] leading-4 text-white/54 sm:max-w-40 sm:text-sm sm:leading-5">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <Link
-            className="group mx-auto w-full max-w-[30rem] rounded-[1.1rem] border border-white/10 bg-white/[0.07] p-3 text-left shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:border-white/18 hover:bg-white/[0.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 sm:rounded-[1.4rem] sm:p-4 md:mx-0 md:w-[30rem]"
-            href={heroContent.primaryCta.href}
-          >
-            <div className="flex items-center gap-4">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-[#003f72]/45 bg-[#003f72]/20 text-white shadow-[0_0_26px_rgba(0,63,114,0.45)] transition group-hover:border-white/28 sm:size-11">
-                <Sparkles className="size-5" aria-hidden="true" />
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-semibold uppercase tracking-[0.08em] text-white sm:text-base">
-                  {heroContent.primaryCta.label}
-                </p>
-                <p className="mt-1 text-xs leading-5 text-white/56 sm:text-sm">
-                  Start the conversation behind your next move.
-                </p>
-              </div>
-              <ArrowRight
-                className="size-5 shrink-0 text-white/54 transition group-hover:translate-x-1 group-hover:text-white"
-                aria-hidden="true"
-              />
-            </div>
-          </Link>
+          <CtaLink className="mt-9" size="lg" />
         </div>
       </div>
     </section>

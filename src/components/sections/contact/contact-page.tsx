@@ -19,15 +19,8 @@ export function ContactPage() {
         />
 
         <div className="relative mx-auto max-w-[1500px] text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-3 py-2 text-sm font-medium text-white/72 backdrop-blur-md">
-            <span className="tidewrk-glow-badge rounded-full px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.08em]">
-              Let&apos;s Collaborate
-            </span>
-            Lead capture
-          </div>
-
-          <h1 className="mx-auto mt-7 max-w-5xl text-balance text-[3.2rem] font-semibold leading-[0.98] tracking-normal text-white sm:text-7xl lg:text-[6rem]">
-            Get In <span className="tidewrk-glow-text">Touch</span>
+          <h1 className="mx-auto max-w-5xl text-balance text-[3.2rem] font-semibold leading-[0.98] tracking-normal text-white sm:text-7xl lg:text-[6rem]">
+            Start a <span className="tidewrk-glow-text">conversation</span>
           </h1>
           <p className="mx-auto mt-6 max-w-4xl text-pretty text-lg leading-8 text-white/66 sm:text-2xl sm:leading-10">
             {contactIntro}
@@ -41,12 +34,8 @@ export function ContactPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.14em] text-white/44">
               Contact information
             </p>
-            <h2 className="mt-4 text-balance text-3xl font-semibold leading-tight text-white sm:text-4xl">
-              We’d love to hear from you.
-            </h2>
             <p className="mt-4 text-base leading-8 text-white/60">
-              Use the form to share your project details, or reach Tidewrk
-              through the regional contact information below.
+              Prefer to reach us directly? Our regional details are below.
             </p>
 
             <div className="mt-8 space-y-5">

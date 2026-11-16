@@ -1,9 +1,11 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
+import { ctaButtonClass } from "@/components/ui/cta-link";
 import { serviceOptions } from "@/constants/contact";
+import { primaryCta } from "@/constants/navigation";
 
 type FormState = {
   name: string;
@@ -43,11 +45,11 @@ function validateForm(form: FormState) {
   }
 
   if (!form.service) {
-    errors.service = "Please select a service.";
+    errors.service = "Please choose the closest fit.";
   }
 
   if (!form.message.trim()) {
-    errors.message = "Tell us how we can help.";
+    errors.message = "Tell us what you’re trying to deliver.";
   }
 
   return errors;
@@ -85,17 +87,9 @@ export function ContactForm() {
         className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#003f72] to-transparent"
       />
 
-      <div className="mb-7">
-        <p className="tidewrk-glow-badge inline-flex rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.08em]">
-          Lead capture
-        </p>
-        <h2 className="mt-4 text-3xl font-semibold leading-tight text-white sm:text-4xl">
-          Get in touch with us
-        </h2>
-        <p className="mt-3 text-sm leading-6 text-white/58">
-          Share a few details and we’ll follow up within 1 business day.
-        </p>
-      </div>
+      <p className="mb-6 text-sm leading-6 text-white/58">
+        Company and phone are optional.
+      </p>
 
       {toastVisible && (
         <div
@@ -104,7 +98,7 @@ export function ContactForm() {
         >
           <CheckCircle2 className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
           <p>
-            Thanks. We received your details and will get back to you within 1
+            Thanks. We received your details and will get back to you within one
             business day.
           </p>
         </div>
@@ -123,7 +117,7 @@ export function ContactForm() {
           />
           <FormField
             error={errors.companyName}
-            label="Company Name"
+            label="Company"
             name="companyName"
             onChange={(value) => updateField("companyName", value)}
             placeholder="Company name"
@@ -144,7 +138,7 @@ export function ContactForm() {
           />
           <FormField
             error={errors.contactNumber}
-            label="Contact Number"
+            label="Phone"
             name="contactNumber"
             onChange={(value) => updateField("contactNumber", value)}
             placeholder="Phone number"
@@ -155,7 +149,7 @@ export function ContactForm() {
 
         <div>
           <label className="mb-2 block text-sm font-semibold text-white/78" htmlFor="service">
-            Service <span className="text-white/42">*</span>
+            What brings you here? <span className="text-white/42">*</span>
           </label>
           <select
             aria-invalid={Boolean(errors.service)}
@@ -165,7 +159,7 @@ export function ContactForm() {
             onChange={(event) => updateField("service", event.target.value)}
             value={form.service}
           >
-            <option value="">Select a service</option>
+            <option value="">Choose one</option>
             {serviceOptions.map((service) => (
               <option key={service} value={service}>
                 {service}
@@ -179,7 +173,7 @@ export function ContactForm() {
 
         <div>
           <label className="mb-2 block text-sm font-semibold text-white/78" htmlFor="message">
-            How can we help? <span className="text-white/42">*</span>
+            What are you trying to deliver? <span className="text-white/42">*</span>
           </label>
           <textarea
             aria-invalid={Boolean(errors.message)}
@@ -187,7 +181,7 @@ export function ContactForm() {
             id="message"
             name="message"
             onChange={(event) => updateField("message", event.target.value)}
-            placeholder="Tell us about your project, team need, or business challenge."
+            placeholder="A product, a roadmap, a back office that keeps up. Tell us in your own words."
             value={form.message}
           />
           {errors.message && (
@@ -195,12 +189,8 @@ export function ContactForm() {
           )}
         </div>
 
-        <button
-          className="inline-flex h-[3.25rem] w-full items-center justify-center gap-2 rounded-full bg-white px-6 text-base font-semibold text-[#003f72] transition duration-300 hover:-translate-y-0.5 hover:bg-[#f5f9fd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-          type="submit"
-        >
-          Submit details
-          <ArrowRight className="size-5" aria-hidden="true" />
+        <button className={`${ctaButtonClass} h-[3.25rem] w-full px-6 text-base`} type="submit">
+          {primaryCta.label}
         </button>
       </form>
     </div>
