@@ -11,6 +11,7 @@ import {
   PageHero,
   StepsSection,
 } from "@/components/sections/route-page/route-page";
+import { SectionPill } from "@/components/ui/section-pill";
 
 export const metadata: Metadata = {
   title: "How We Work | Tidewrk",
@@ -54,7 +55,7 @@ const withYourTeam = [
 ];
 
 const sectionClass =
-  "relative bg-[#02050a] px-5 py-20 text-white sm:px-8 md:py-28 lg:px-[6vw]";
+  "relative bg-[#061F46] px-5 py-20 text-white sm:px-8 md:py-28 lg:px-[6vw]";
 
 export default function HowWeWorkPage() {
   return (
@@ -70,9 +71,7 @@ export default function HowWeWorkPage() {
         {/* Executive Advisory is how every engagement starts, not a separate service line. */}
         <section className={`${sectionClass} scroll-mt-16`} id="executive-advisory">
           <div className="mx-auto max-w-4xl">
-            <span className="tidewrk-glow-badge inline-flex rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.1em]">
-              Executive Advisory
-            </span>
+            <SectionPill>Executive Advisory</SectionPill>
             <h2 className="mt-6 text-balance text-4xl font-semibold leading-tight sm:text-5xl">
               Every engagement starts at the leadership level.
             </h2>
@@ -105,7 +104,7 @@ export default function HowWeWorkPage() {
             <div className="mt-14 grid gap-5 md:grid-cols-2">
               {withYourTeam.map((item) => (
                 <article
-                  className="rounded-[1.25rem] border border-white/10 bg-white/[0.045] p-7 sm:p-9"
+                  className="rounded-[1.25rem] border border-white/10 bg-[#071A3A]/80 p-7 sm:p-9"
                   key={item.title}
                 >
                   <h3 className="text-2xl font-semibold leading-tight">{item.title}</h3>

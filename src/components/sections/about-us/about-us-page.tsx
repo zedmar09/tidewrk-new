@@ -1,6 +1,7 @@
 import { CheckCircle2, Compass, Workflow } from "lucide-react";
 
 import { CtaLink } from "@/components/ui/cta-link";
+import { SectionPill } from "@/components/ui/section-pill";
 
 // Values: kept from the current site with light edits (Website Direction §5.8).
 const values = [
@@ -31,29 +32,24 @@ const numbers = [
 
 export function AboutUsPage() {
   return (
-    <main className="relative overflow-hidden bg-[#02050a] text-white">
+    <main className="relative overflow-hidden bg-[#061F46] text-white">
       <section className="relative isolate px-5 pb-16 pt-28 sm:px-8 sm:pb-20 sm:pt-32 lg:px-[6vw]">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(0,63,114,0.48),transparent_34%),radial-gradient(ellipse_at_14%_72%,rgba(0,63,114,0.2),transparent_28%),radial-gradient(ellipse_at_88%_58%,rgba(0,63,114,0.18),transparent_30%),linear-gradient(180deg,#02050a_0%,#06111f_52%,#02050a_100%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(15,75,146,0.38),transparent_34%),radial-gradient(ellipse_at_14%_72%,rgba(15,75,146,0.22),transparent_28%),radial-gradient(ellipse_at_88%_58%,rgba(15,75,146,0.18),transparent_30%),linear-gradient(180deg,#061F46_0%,#082854_52%,#061F46_100%)]"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#02050a] via-[#02050a]/88 to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#061F46] via-[#061F46]/88 to-transparent"
         />
 
         <div className="relative mx-auto grid max-w-[1500px] gap-12 lg:grid-cols-[0.98fr_1.02fr] lg:items-end">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-3 py-2 text-sm font-medium text-white/72 backdrop-blur-md">
-              <span className="tidewrk-glow-badge rounded-full px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.08em]">
-                About Tidewrk
-              </span>
-              Company
-            </div>
+            <SectionPill>About Tidewrk</SectionPill>
 
             <h1 className="mt-8 max-w-5xl text-balance text-[3.5rem] font-semibold leading-[0.98] tracking-normal text-white sm:text-7xl lg:text-[6.2rem]">
               Built on three coasts.{" "}
-              <span className="tidewrk-glow-text">Working inside your team.</span>
+              <span className="text-[#E98973]">Working inside your team.</span>
             </h1>
           </div>
 
@@ -107,7 +103,7 @@ export function AboutUsPage() {
 
               return (
                 <article
-                  className="rounded-[1.35rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.075),rgba(255,255,255,0.035))] p-6 shadow-[0_24px_90px_rgba(0,0,0,0.18)] backdrop-blur-xl sm:p-7"
+                  className="rounded-[1.35rem] border border-white/10 bg-[#071A3A]/80 p-6 shadow-[0_24px_90px_rgba(0,0,0,0.14)] backdrop-blur-xl sm:p-7"
                   key={value.title}
                 >
                   <span className="flex size-[3.25rem] items-center justify-center rounded-full border border-[#003f72]/50 bg-[#003f72]/22 text-white shadow-[0_0_18px_rgba(255,255,255,0.12),0_0_34px_rgba(0,63,114,0.45)]">
@@ -131,7 +127,7 @@ export function AboutUsPage() {
             <div className="mt-8 grid gap-8 sm:grid-cols-2">
               {numbers.map((item) => (
                 <div key={item.label}>
-                  <p className="tidewrk-glow-text text-6xl font-semibold leading-none">
+                  <p className="text-6xl font-semibold leading-none text-[#E98973]">
                     {item.value}
                   </p>
                   <p className="mt-3 text-lg text-white/62">{item.label}</p>

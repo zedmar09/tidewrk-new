@@ -2,10 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+import { SectionPill } from "@/components/ui/section-pill";
 import { routes } from "@/constants/navigation";
 
 import { FitsBackdrop } from "./fits/fits-backdrop";
-
 
 // "Where Tidewrk fits" (Website Direction §4.3): four scenario cards in the
 // visitor's words. Copy is the client's, word for word; card order matches the
@@ -65,9 +65,9 @@ export function WhereTidewrkFitsSection() {
       <div className="relative [--rail:1.25rem] sm:[--rail:1.5rem] md:[--rail:9cqw]" style={{ paddingInline: "var(--rail)" }}>
         {/* Heading block centred over the cards. */}
         <div className="flex flex-col items-center text-center">
-          <span className="inline-flex rounded-full border border-[#C8CCD0]/30 bg-[#071A3A] px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white shadow-[0_8px_30px_rgba(0,8,30,0.35)] sm:px-5 sm:py-2 sm:text-sm">
+          <SectionPill>
             Where Tidewrk fits
-          </span>
+          </SectionPill>
 
           <h2 className="mt-7 text-balance text-[clamp(2.3rem,3.6vw,3.4rem)] font-semibold leading-[1.06] tracking-[-0.01em]">
             Built for the work behind <span className="text-[#E98973]">growth</span>

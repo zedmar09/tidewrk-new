@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { SectionHeading } from "@/components/sections/home/section-heading";
 import { PageHero } from "@/components/sections/route-page/route-page";
+import { SectionPill } from "@/components/ui/section-pill";
 import { capabilityItems, whatWeDoItems } from "@/constants/navigation";
 import {
   buildYourProduct,
@@ -23,7 +24,7 @@ const routePages = [
 ];
 
 const sectionClass =
-  "relative bg-[#02050a] px-5 py-20 text-white sm:px-8 md:py-28 lg:px-[6vw]";
+  "relative bg-[#061F46] px-5 py-20 text-white sm:px-8 md:py-28 lg:px-[6vw]";
 
 function getCapability(href: string) {
   return capabilityItems.find((item) => item.href === href);
@@ -68,9 +69,7 @@ export function CapabilityPage({ href }: { href: string }) {
         {capability.overview && (
           <section className={sectionClass}>
             <div className="mx-auto max-w-4xl">
-              <span className="tidewrk-glow-badge inline-flex rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.1em]">
-                What it is
-              </span>
+              <SectionPill>What it is</SectionPill>
               <p className="mt-7 text-pretty text-2xl leading-10 text-white/80">
                 {capability.overview}
               </p>
@@ -95,7 +94,7 @@ export function CapabilityPage({ href }: { href: string }) {
             >
               {routes.map((route) => (
                 <Link
-                  className="group rounded-[1.25rem] border border-white/10 bg-white/[0.045] p-6 transition hover:border-[#003f72]/70 hover:bg-white/[0.07] sm:p-7"
+                  className="group rounded-[1.25rem] border border-white/10 bg-[#071A3A]/80 p-6 transition hover:border-[#0F4B92]/70 hover:bg-[#0A2148] sm:p-7"
                   href={route.href}
                   key={route.href}
                 >
@@ -118,9 +117,7 @@ export function CapabilityPage({ href }: { href: string }) {
         {capability.tags && (
           <section className={sectionClass}>
             <div className="mx-auto max-w-4xl text-center">
-              <span className="tidewrk-glow-badge inline-flex rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.1em]">
-                The stack
-              </span>
+              <SectionPill>The stack</SectionPill>
               <ul className="mt-8 flex flex-wrap justify-center gap-3">
                 {capability.tags.map((tag) => (
                   <li
@@ -137,7 +134,7 @@ export function CapabilityPage({ href }: { href: string }) {
 
         {capability.proof && (
           <section className={sectionClass}>
-            <div className="mx-auto max-w-3xl rounded-[1.25rem] border border-white/10 bg-white/[0.045] p-7 sm:p-9">
+            <div className="mx-auto max-w-3xl rounded-[1.25rem] border border-white/10 bg-[#071A3A]/80 p-7 sm:p-9">
               <h2 className="text-2xl font-semibold leading-tight">
                 {capability.proof.title}
               </h2>

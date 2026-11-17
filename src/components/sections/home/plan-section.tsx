@@ -144,7 +144,6 @@ export function PlanSection() {
       <div className="relative mx-auto max-w-[1500px]">
         <SectionHeading
           eyebrow="No decks, no homework"
-          eyebrowTone="quiet"
           title="How this works"
         />
 

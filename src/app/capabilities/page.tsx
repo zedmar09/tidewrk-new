@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 const sectionClass =
-  "relative bg-[#02050a] px-5 py-20 text-white sm:px-8 md:py-28 lg:px-[6vw]";
+  "relative bg-[#061F46] px-5 py-20 text-white sm:px-8 md:py-28 lg:px-[6vw]";
 
 // These pages inform; the four route pages sell. No AI language beyond what's true per capability.
 export default function CapabilitiesPage() {
@@ -33,7 +33,7 @@ export default function CapabilitiesPage() {
           <div className="mx-auto grid max-w-[1500px] gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {capabilityItems.map((capability) => (
               <Link
-                className="group flex flex-col rounded-[1.25rem] border border-white/10 bg-white/[0.045] p-6 transition hover:border-[#003f72]/70 hover:bg-white/[0.07] sm:p-7"
+                className="group flex flex-col rounded-[1.25rem] border border-white/10 bg-[#071A3A]/80 p-6 transition hover:border-[#0F4B92]/70 hover:bg-[#0A2148] sm:p-7"
                 href={capability.href}
                 key={capability.href}
               >
@@ -73,7 +73,7 @@ export default function CapabilitiesPage() {
             <div className="mt-14 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               {whatWeDoItems.map((route) => (
                 <Link
-                  className="group rounded-[1.25rem] border border-white/10 bg-white/[0.045] p-6 transition hover:border-[#003f72]/70 hover:bg-white/[0.07]"
+                  className="group rounded-[1.25rem] border border-white/10 bg-[#071A3A]/80 p-6 transition hover:border-[#0F4B92]/70 hover:bg-[#0A2148]"
                   href={route.href}
                   key={route.href}
                 >

@@ -17,7 +17,6 @@ export function AiWorkflowSection() {
           className="max-w-[1140px]"
           description="We use AI where it makes the work faster and more consistent. Every piece of work still has a named person accountable for it, and nothing reaches you without human review."
           eyebrow="How we use AI"
-          eyebrowTone="quiet"
           title={
             <>
               AI-supported tools,{" "}

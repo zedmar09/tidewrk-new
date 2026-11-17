@@ -1,3 +1,5 @@
+import { SectionPill } from "@/components/ui/section-pill";
+
 import { ProblemBackdrop } from "./problem/problem-backdrop";
 import { ProblemScene } from "./problem/problem-scene";
 
@@ -26,9 +28,9 @@ export function ProblemSection() {
           style={{ paddingLeft: "var(--rail)", paddingRight: "var(--end)" }}
         >
           <div>
-            <span className="inline-flex rounded-full border border-[#C8CCD0]/30 bg-[#071A3A] px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white shadow-[0_8px_30px_rgba(0,8,30,0.35)] sm:px-5 sm:py-2 sm:text-sm">
+            <SectionPill>
               What we were built against
-            </span>
+            </SectionPill>
 
             <h2 className="mt-7 text-balance text-[clamp(2.3rem,3.6vw,3.4rem)] font-semibold leading-[1.06] tracking-[-0.01em]">
               You&apos;re not struggling.

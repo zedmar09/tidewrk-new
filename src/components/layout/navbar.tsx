@@ -106,7 +106,7 @@ export function Navbar() {
       className={`fixed inset-x-0 top-0 z-50 text-white transition-colors duration-300 ${
         isScrolled || isDropdownOpen
           ? "border-b border-[#C8CCD0]/15 bg-[#010F2A] shadow-[0_12px_40px_rgba(1,8,24,0.45)]"
-          : "border-b border-[#C8CCD0]/15 bg-[#010F2A]"
+          : "border-b border-[#C8CCD0]/15 bg-transparent"
       }`}
     >
       <nav className="mx-auto flex h-16 w-full max-w-[1800px] items-center justify-between px-5 sm:px-8 lg:px-12">
