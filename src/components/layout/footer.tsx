@@ -4,6 +4,8 @@ import { ArrowUp } from "lucide-react";
 
 import tidewrkLogo from "@/assets/images/tidewrk-logo.svg";
 import { CtaLink } from "@/components/ui/cta-link";
+
+import { FOOTER_BG } from "./footer/cta-theme";
 import {
   capabilityItems,
   routes,
@@ -45,37 +47,47 @@ const footerColumns = [
 
 // Social icons are left out until each one has a real account URL behind it.
 
+// The closing CTA (Website Direction §4.9) sits over a sunrise: the page began
+// at night in the hero and ends at sunrise. The artwork's final colour is the
+// footer background, so the CTA and footer read as one continuous scene.
 export function Footer() {
   return (
-    <footer
-      className="relative overflow-hidden bg-[#02050a] px-5 pb-8 pt-20 text-white sm:px-8 md:pt-28 lg:px-[6vw]"
-      id="contact"
-    >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_34%_58%,rgba(0,63,114,0.46),transparent_38%),radial-gradient(ellipse_at_68%_56%,rgba(0,63,114,0.22),transparent_30%),radial-gradient(ellipse_at_58%_96%,rgba(0,63,114,0.34),transparent_30%),linear-gradient(180deg,#02050a_0%,#02050a_40%,#02050a_100%)]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#02050a] via-[#02050a]/88 to-transparent"
-      />
-
-      <div className="relative mx-auto max-w-[1800px] rounded-[1.1rem] bg-black/16 px-5 py-12 shadow-[0_34px_120px_rgba(0,0,0,0.18)] backdrop-blur-[2px] sm:px-8 sm:py-16 lg:px-14 lg:py-20">
-        <div className="mx-auto max-w-3xl py-8 text-center sm:py-10 lg:py-12">
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-white/50">
+    <footer className="relative overflow-hidden text-white" id="contact" style={{ background: FOOTER_BG }}>
+      {/* One scene: the CTA text sits in the sky, the sun rises below it. */}
+      <div className="relative h-[clamp(46rem,75vw,68rem)]">
+        <Image
+          alt=""
+          className="object-cover object-center"
+          fill
+          sizes="100vw"
+          src="/images/footer/cta-bg.svg"
+          unoptimized
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 z-10 h-36 bg-[linear-gradient(180deg,#022C69_0%,rgba(2,44,105,0)_100%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-44 bg-[linear-gradient(180deg,rgba(0,19,58,0)_0%,#00133A_100%)]"
+        />
+        <div className="absolute inset-x-0 top-0 z-20 px-5 pt-[clamp(3.5rem,5.5vw,5.5rem)] text-center sm:px-8">
+          <span className="inline-flex rounded-full border border-[#C8CCD0]/30 bg-[#071A3A] px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white shadow-[0_8px_30px_rgba(0,8,30,0.35)] sm:px-5 sm:py-2 sm:text-sm">
             The tide behind you.
-          </p>
-          <h2 className="mt-5 text-balance text-[2rem] font-semibold leading-[1.06] tracking-normal text-white sm:text-5xl lg:text-[3.7rem]">
-            Ready for your next move?
+          </span>
+          <h2 className="mx-auto mt-5 max-w-[16ch] text-balance text-[clamp(2.4rem,5vw,4.5rem)] font-semibold leading-[1.05] tracking-[-0.01em] md:max-w-none">
+            Ready for your <span className="text-[#E98973]">next move?</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-pretty text-lg leading-8 text-white/64 sm:text-xl">
+          <p className="mx-auto mt-4 max-w-2xl text-pretty text-[clamp(1.05rem,1.5vw,1.3rem)] leading-relaxed text-[#E4E8EE]">
             More to build and run than you can hire for? Tell us what
             you&apos;re trying to deliver.
           </p>
-          <CtaLink className="mt-8" size="lg" />
+          <CtaLink className="mt-7" size="lg" />
         </div>
+      </div>
 
-        <div className="mt-16 grid gap-10 border-t border-white/10 pt-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4 xl:grid-cols-[minmax(16rem,1.2fr)_repeat(4,minmax(0,1fr))]">
+      <div className="relative -mt-px px-5 pb-8 pt-2 sm:px-8 lg:px-[6vw]">
+        <div className="mx-auto grid max-w-[1800px] gap-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-[minmax(16rem,1.2fr)_repeat(4,minmax(0,1fr))]">
           <div className="max-w-sm sm:col-span-2 lg:col-span-4 xl:col-span-1">
             <Link
               aria-label="Go to Tidewrk home page"
@@ -92,7 +104,7 @@ export function Footer() {
             <p className="mt-5 text-base font-semibold text-white">
               The tide behind you.
             </p>
-            <p className="mt-2 text-sm leading-6 text-white/54">
+            <p className="mt-2 text-sm leading-6 text-[#C8CCD0]/80">
               Developers, operators, and support embedded in your business.
               Built in the Philippines, working inside your team.
             </p>
@@ -100,10 +112,10 @@ export function Footer() {
 
           {footerColumns.map((column) => (
             <nav aria-label={column.title} key={column.title}>
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/44">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#C8CCD0]/70">
                 {column.title}
               </p>
-              <ul className="mt-4 space-y-3 text-sm text-white/72">
+              <ul className="mt-4 space-y-3 text-sm text-white/80">
                 {column.links.map((link) => (
                   <li key={link.href}>
                     <Link
@@ -119,13 +131,13 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col-reverse items-center justify-between gap-6 border-t border-white/10 pt-6 sm:flex-row">
-          <p className="text-xs text-white/42">
+        <div className="mx-auto mt-12 flex max-w-[1800px] flex-col-reverse items-center justify-between gap-6 border-t border-[#C8CCD0]/15 pt-6 sm:flex-row">
+          <p className="text-xs text-[#C8CCD0]/70">
             © 2026 Tidewrk. All rights reserved.
           </p>
           <Link
             aria-label="Back to top"
-            className="flex size-11 items-center justify-center rounded-full border border-white/14 bg-white text-[#003f72] transition hover:-translate-y-1 hover:bg-white/88"
+            className="flex size-11 items-center justify-center rounded-full border border-white/14 bg-white text-[#123362] transition hover:-translate-y-1 hover:bg-[#C8CCD0]"
             href="#top"
           >
             <ArrowUp className="size-5" aria-hidden="true" />

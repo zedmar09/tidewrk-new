@@ -5,7 +5,17 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
-import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import {
+  ArrowRight,
+  CalendarClock,
+  ChevronDown,
+  Code2,
+  Menu,
+  Rocket,
+  Workflow,
+  X,
+} from "lucide-react";
 import {
   navigationItems,
   routes,
@@ -13,6 +23,29 @@ import {
 } from "@/constants/navigation";
 import tidewrkLogo from "@/assets/images/tidewrk-logo.svg";
 import { CtaLink } from "@/components/ui/cta-link";
+
+// One icon per route, matching the four "Where Tidewrk fits" cards.
+const routeIcons: Record<string, LucideIcon> = {
+  [routes.buildYourProduct]: Rocket,
+  [routes.scaleYourEngineeringTeam]: Code2,
+  [routes.runYourBackOffice]: Workflow,
+  [routes.freeUpYourTime]: CalendarClock,
+};
+
+function RouteIcon({ href, size = "md" }: { href: string; size?: "sm" | "md" }) {
+  const Icon = routeIcons[href] ?? ArrowRight;
+
+  return (
+    <span
+      aria-hidden="true"
+      className={`flex shrink-0 items-center justify-center rounded-[0.7rem] border border-[#C8CCD0]/20 bg-[#0E2A5A] text-[#E98973] ${
+        size === "md" ? "size-10" : "size-9"
+      }`}
+    >
+      <Icon className={size === "md" ? "size-5" : "size-[1.125rem]"} strokeWidth={1.75} />
+    </span>
+  );
+}
 
 export function Navbar() {
   const pathname = usePathname();
@@ -72,8 +105,8 @@ export function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-50 text-white transition-colors duration-300 ${
         isScrolled || isDropdownOpen
-          ? "border-b border-white/12 bg-[#02050a]/80 shadow-[0_18px_60px_rgba(0,0,0,0.16)] backdrop-blur-2xl"
-          : "bg-transparent"
+          ? "border-b border-[#C8CCD0]/15 bg-[#010F2A] shadow-[0_12px_40px_rgba(1,8,24,0.45)]"
+          : "border-b border-[#C8CCD0]/15 bg-[#010F2A]"
       }`}
     >
       <nav className="mx-auto flex h-16 w-full max-w-[1800px] items-center justify-between px-5 sm:px-8 lg:px-12">
@@ -128,27 +161,30 @@ export function Navbar() {
                   }`}
                   id="what-we-do-menu"
                 >
-                  <div className="overflow-hidden rounded-[1rem] border border-white/10 bg-[#02050a]/96 shadow-[0_30px_100px_rgba(0,0,0,0.42)] backdrop-blur-2xl">
+                  <div className="overflow-hidden rounded-[1rem] border border-[#C8CCD0]/30 bg-[#071A3A] shadow-[0_24px_60px_rgba(1,8,24,0.55)]">
                     <ul className="p-2">
                       {whatWeDoItems.map((link) => (
                         <li key={link.href}>
                           <Link
-                            className="block rounded-[0.75rem] px-4 py-3 transition hover:bg-white/[0.07]"
+                            className="group flex items-start gap-3.5 rounded-[0.75rem] px-4 py-3 transition hover:bg-[#0E2A5A]"
                             href={link.href}
                             onClick={closeMenu}
                           >
-                            <span className="block text-base font-semibold text-white">
-                              {link.label}
-                            </span>
-                            <span className="mt-0.5 block text-sm leading-6 text-white/58">
-                              {link.description}
+                            <RouteIcon href={link.href} />
+                            <span>
+                              <span className="block text-base font-semibold text-white">
+                                {link.label}
+                              </span>
+                              <span className="mt-0.5 block text-sm leading-6 text-[#C8CCD0]/80">
+                                {link.description}
+                              </span>
                             </span>
                           </Link>
                         </li>
                       ))}
                     </ul>
                     <Link
-                      className="flex items-center justify-between border-t border-white/10 px-6 py-4 text-sm font-semibold text-white/80 transition hover:bg-white/[0.05] hover:text-white"
+                      className="flex items-center justify-between border-t border-[#C8CCD0]/20 px-6 py-4 text-sm font-semibold text-white/85 transition hover:bg-[#0E2A5A] hover:text-white"
                       href={routes.capabilities}
                       onClick={closeMenu}
                     >
@@ -186,14 +222,14 @@ export function Navbar() {
       </nav>
 
       <div
-        className={`fixed inset-0 top-16 z-40 bg-[#123362]/70 transition-opacity duration-200 lg:hidden ${
+        className={`fixed inset-0 top-16 z-40 bg-[#010F2A]/70 transition-opacity duration-200 lg:hidden ${
           isMenuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
         onClick={closeMenu}
       />
 
       <div
-        className={`fixed inset-x-0 top-16 z-50 flex max-h-[calc(100svh-4rem)] flex-col border-b border-white/10 bg-[#123362] shadow-[0_22px_70px_rgba(0,0,0,0.26)] transition duration-300 lg:hidden ${
+        className={`fixed inset-x-0 top-16 z-50 flex max-h-[calc(100svh-4rem)] flex-col border-b border-[#C8CCD0]/15 bg-[#071A3A] shadow-[0_22px_70px_rgba(0,0,0,0.26)] transition duration-300 lg:hidden ${
           isMenuOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-3 opacity-0"
         }`}
         id="mobile-navigation"
@@ -208,16 +244,19 @@ export function Navbar() {
                   </p>
                   {whatWeDoItems.map((link) => (
                     <Link
-                      className="block px-3 py-2.5 transition hover:bg-white/10"
+                      className="flex items-start gap-3 px-3 py-2.5 transition hover:bg-[#0E2A5A]"
                       href={link.href}
                       key={link.href}
                       onClick={closeMenu}
                     >
-                      <span className="block text-base font-medium text-white">
-                        {link.label}
-                      </span>
-                      <span className="block text-sm text-white/60">
-                        {link.description}
+                      <RouteIcon href={link.href} size="sm" />
+                      <span>
+                        <span className="block text-base font-medium text-white">
+                          {link.label}
+                        </span>
+                        <span className="block text-sm text-[#C8CCD0]/75">
+                          {link.description}
+                        </span>
                       </span>
                     </Link>
                   ))}

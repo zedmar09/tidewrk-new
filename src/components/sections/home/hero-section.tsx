@@ -1,108 +1,146 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useEffect, useState } from "react";
+import { type RefObject, useEffect, useRef, useState } from "react";
 
 import { CtaLink } from "@/components/ui/cta-link";
 
-const wavePaths = [
-  "M-560 720 C-220 610 20 720 170 520 C340 294 512 378 680 500 C842 618 1012 432 1192 318 C1394 190 1596 232 2040 54",
-  "M-560 696 C-206 594 42 700 194 502 C364 282 528 366 700 482 C866 594 1034 416 1216 304 C1412 184 1628 214 2040 42",
-  "M-560 672 C-192 578 64 680 218 484 C388 270 544 354 720 464 C890 570 1056 400 1240 290 C1430 178 1660 196 2040 30",
-  "M-560 648 C-178 562 86 660 242 466 C412 258 560 342 740 446 C914 546 1078 384 1264 276 C1448 172 1692 178 2040 18",
-  "M-560 624 C-164 546 108 640 266 448 C436 246 576 330 760 428 C938 522 1100 368 1288 262 C1466 166 1724 160 2040 6",
-  "M-560 600 C-150 530 130 620 290 430 C460 234 592 318 780 410 C962 498 1122 352 1312 248 C1484 160 1756 142 2040 -6",
-  "M-560 576 C-136 514 152 600 314 412 C484 222 608 306 800 392 C986 474 1144 336 1336 234 C1502 154 1788 124 2040 -18",
-  "M-560 552 C-122 498 174 580 338 394 C508 210 624 294 820 374 C1010 450 1166 320 1360 220 C1520 148 1820 106 2040 -30",
-  "M-560 528 C-108 482 196 560 362 376 C532 198 640 282 840 356 C1034 426 1188 304 1384 206 C1538 142 1852 88 2040 -42",
-  "M-560 504 C-94 466 218 540 386 358 C556 186 656 270 860 338 C1058 402 1210 288 1408 192 C1556 136 1884 70 2040 -54",
-  "M-560 480 C-80 450 240 520 410 340 C580 174 672 258 880 320 C1082 378 1232 272 1432 178 C1574 130 1916 52 2040 -66",
-  "M-560 456 C-66 434 262 500 434 322 C604 162 688 246 900 302 C1106 354 1254 256 1456 164 C1592 124 1948 34 2040 -78",
-];
+import { HeroChips } from "./hero/hero-chips";
+import { TideBackdrop } from "./hero/tide-backdrop";
 
 // Rotator: "The tide behind" stays fixed, the whole ending swaps.
-// Runs once and holds on "you."
+// Loops forever, lingering a little longer on the brand line "you".
 const rotatorEndings = [
-  "your roadmap.",
-  "your launch.",
-  "your back office.",
-  "your next move.",
-  "you.",
+  "your roadmap",
+  "your launch",
+  "your back office",
+  "your next move",
+  "you",
 ];
 
 const ROTATE_EVERY_MS = 2200;
+const HOLD_FINAL_MS = 3600;
 
 function useRotatorIndex(length: number, disabled: boolean) {
   const [index, setIndex] = useState(0);
   const finalIndex = length - 1;
 
   useEffect(() => {
-    if (disabled || index >= finalIndex) return;
+    if (disabled) return;
 
     const timeoutId = window.setTimeout(
-      () => setIndex((current) => Math.min(current + 1, finalIndex)),
-      ROTATE_EVERY_MS,
+      () => setIndex((current) => (current + 1) % length),
+      index === finalIndex ? HOLD_FINAL_MS : ROTATE_EVERY_MS,
     );
 
     return () => window.clearTimeout(timeoutId);
-  }, [disabled, finalIndex, index]);
+  }, [disabled, finalIndex, index, length]);
 
   return disabled ? finalIndex : index;
+}
+
+/**
+ * Phones: while the hero is pinned, vertical scrolling slides the scene
+ * sideways (Plan → Build → Test → Launch → Next move). Once the end is
+ * reached the page carries on to the next section. Returns the extra
+ * scroll distance the hero needs (0 when the scene already fits, e.g. desktop).
+ */
+function useScrollSlide(
+  sectionRef: RefObject<HTMLElement | null>,
+  stripRef: RefObject<HTMLDivElement | null>,
+  trackRef: RefObject<HTMLDivElement | null>,
+) {
+  const [travel, setTravel] = useState(0);
+
+  useEffect(() => {
+    const strip = stripRef.current;
+    const track = trackRef.current;
+    const section = sectionRef.current;
+    if (!strip || !track || !section) return;
+
+    let distance = 0;
+    let frame = 0;
+
+    const apply = () => {
+      frame = 0;
+      const progress =
+        distance > 0
+          ? Math.min(
+              1,
+              Math.max(0, -section.getBoundingClientRect().top / distance),
+            )
+          : 0;
+      track.style.transform =
+        distance > 0
+          ? `translate3d(${(-progress * distance).toFixed(1)}px, 0, 0)`
+          : "";
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+    const measure = () => {
+      distance = Math.max(0, Math.round(track.scrollWidth - strip.clientWidth));
+      setTravel(distance);
+      apply();
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(strip);
+    observer.observe(track);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, [sectionRef, stripRef, trackRef]);
+
+  return travel;
 }
 
 export function HeroSection() {
   const reduceMotion = useReducedMotion() ?? false;
   const index = useRotatorIndex(rotatorEndings.length, reduceMotion);
   const ending = rotatorEndings[index];
+  const textRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const travel = useScrollSlide(sectionRef, stripRef, trackRef);
 
   return (
-    <section className="relative z-0 min-h-[100svh] overflow-hidden bg-[#02050a] px-5 pb-6 pt-[4.75rem] text-white sm:px-8 sm:pt-20 lg:px-[6vw]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,63,114,0.78),transparent_45%),radial-gradient(ellipse_at_50%_20%,rgba(0,63,114,0.32),transparent_32%),linear-gradient(180deg,#02050a_0%,#07111f_46%,#02050a_100%)]" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#003f72]/46 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#02050a] via-[#02050a]/88 to-transparent" />
+    // The section is taller than the screen only on phones, by exactly the
+    // distance the scene slides sideways while the hero stays pinned.
+    <section
+      className="relative isolate bg-[#010F2A] text-white"
+      ref={sectionRef}
+      style={travel ? { height: `calc(100svh + ${travel}px)` } : undefined}
+    >
+      <div className="sticky top-0 flex h-[100svh] min-h-[600px] flex-col overflow-clip md:min-h-[640px]">
+        {/* Desktop: the scene fills the hero behind the text. Phones: it fills
+          the space between the text and the chips, and slides sideways as
+          you scroll, about two team members per screen. */}
+        <div
+          className="relative order-2 min-h-0 flex-1 overflow-hidden md:absolute md:inset-0 md:-z-10"
+          ref={stripRef}
+        >
+          <div
+            className="h-full w-max will-change-transform md:w-full"
+            ref={trackRef}
+          >
+            <TideBackdrop
+              avoidRef={textRef}
+              className="block aspect-[2.8] h-full w-auto max-w-none md:aspect-auto md:w-full"
+            />
+          </div>
+        </div>
 
-      <svg
-        aria-hidden="true"
-        className="tide-wave-geometry pointer-events-none absolute -bottom-[1%] -left-[88%] h-[42svh] min-h-[290px] w-[280%] opacity-45 sm:-left-[42%] sm:h-[58svh] sm:min-h-[430px] sm:w-[205%] sm:opacity-60 lg:-bottom-[2%] lg:-left-[20%] lg:h-[76svh] lg:min-h-[560px] lg:w-[150%] lg:opacity-82"
-        fill="none"
-        preserveAspectRatio="none"
-        style={{
-          WebkitMaskImage:
-            "linear-gradient(112deg, transparent 0%, #000 13%, #000 86%, transparent 100%)",
-          maskImage:
-            "linear-gradient(112deg, transparent 0%, #000 13%, #000 86%, transparent 100%)",
-          backfaceVisibility: "hidden",
-          contain: "layout paint",
-          transform: "translate3d(0,0,0)",
-        }}
-        viewBox="-360 0 2160 720"
-      >
-        {wavePaths.map((path, index) => (
-          <path
-            d={path}
-            key={path}
-            className={index % 2 === 0 ? "tide-wave-line" : "tide-wave-line tide-wave-line-alt"}
-            stroke={
-              index % 3 === 0
-                ? "rgba(0,63,114,0.58)"
-                : index % 3 === 1
-                  ? "rgba(255,255,255,0.18)"
-                  : "rgba(0,63,114,0.46)"
-            }
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={index % 4 === 0 ? 1.6 : 1}
-            style={{
-              animationDelay: `${index * -0.58}s`,
-              animationDuration: `${8.6 + (index % 5) * 0.9}s`,
-            }}
-          />
-        ))}
-      </svg>
-
-      <div className="relative mx-auto flex min-h-[calc(100svh-4.75rem)] w-full max-w-[1900px] flex-col items-center justify-center pb-16 text-center sm:min-h-[calc(100svh-5rem)]">
-        <div className="mx-auto flex w-full max-w-6xl flex-col items-center">
-          <h1 className="w-full text-balance text-[clamp(2.4rem,11vw,3.4rem)] font-semibold leading-[1.04] tracking-normal text-white sm:text-7xl sm:leading-[1.02] lg:text-[5.4rem] xl:text-[6.2rem]">
+        <div
+          ref={textRef}
+          className="relative z-10 order-1 mx-auto flex w-full max-w-6xl flex-col items-center px-5 pb-2 pt-[5.25rem] text-center sm:px-8 md:pb-0 md:pt-[clamp(6rem,14svh,9rem)]"
+        >
+          <h1 className="w-full text-balance text-[clamp(2.3rem,4.9vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.01em]">
             <span className="sr-only">The tide behind you.</span>
             <span aria-hidden="true" className="block">
               The tide behind
@@ -117,7 +155,7 @@ export function HeroSection() {
               <AnimatePresence initial={false} mode="wait">
                 <motion.span
                   animate={{ opacity: 1, y: "0%" }}
-                  className="tidewrk-glow-text self-center [grid-area:1/1]"
+                  className="self-center text-[#E98973] [grid-area:1/1]"
                   exit={{ opacity: 0, y: "-60%" }}
                   initial={{ opacity: 0, y: "60%" }}
                   key={ending}
@@ -129,13 +167,17 @@ export function HeroSection() {
             </span>
           </h1>
 
-          <p className="mt-7 max-w-4xl text-pretty text-xl leading-9 text-white/72 sm:text-2xl sm:leading-10">
+          <p className="mt-4 max-w-[46rem] text-pretty text-[clamp(1rem,1.3vw,1.25rem)] font-normal leading-[1.45] text-[#C8CCD0]">
             Tidewrk embeds developers, operators, and support inside your
             business, backed by redundancy, built to stay, and yours to direct.
           </p>
 
-          <CtaLink className="mt-9" size="lg" />
+          <CtaLink className="mt-6" size="lg" />
         </div>
+
+        {/* Proof points along the bottom: a sliding row on phones (on the
+          front-wave colour, so the scene flows into it), centred on desktop. */}
+        <HeroChips className="relative z-10 order-3 -mt-px bg-[#012356] px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2 md:mt-auto md:bg-transparent md:pb-[clamp(1.5rem,5svh,3.5rem)] md:pt-0" />
       </div>
     </section>
   );

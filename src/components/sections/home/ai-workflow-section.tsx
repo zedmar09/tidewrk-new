@@ -1,53 +1,42 @@
-import { SectionHeading } from "./section-heading";
+import Image from "next/image";
 
-// The one homepage section about AI. AI stays out of every other section.
-// TODO(client): the three lists (where AI helps / where a person decides /
-// what never ships unreviewed) and the tools list need confirmation from
-// Jay and the delivery team before they go live. Until then they stay off the page.
+import { AiBackdrop } from "./ai/ai-backdrop";
+import { SectionHeading } from "./section-heading";
 
 export function AiWorkflowSection() {
   return (
-    <section className="relative overflow-hidden bg-[#02050a] px-5 py-20 text-white sm:px-8 md:py-28 lg:px-[6vw]">
+    <section className="relative isolate -mt-px overflow-hidden bg-[#061F46] px-5 pb-24 pt-24 text-white sm:px-8 sm:pb-28 sm:pt-28 md:pb-32 md:pt-32 lg:px-[2.5vw] lg:pt-28">
+      <AiBackdrop />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(0,63,114,0.55),transparent_38%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_58%,rgba(21,80,140,0.18),transparent_42%)]"
       />
 
-      <div className="relative mx-auto max-w-[1500px]">
+      <div className="relative z-10 mx-auto max-w-[1540px]">
         <SectionHeading
+          className="max-w-[1140px]"
+          description="We use AI where it makes the work faster and more consistent. Every piece of work still has a named person accountable for it, and nothing reaches you without human review."
           eyebrow="How we use AI"
+          eyebrowTone="quiet"
           title={
             <>
               AI-supported tools,{" "}
-              <span className="tidewrk-glow-text">human-led execution.</span>
+              <span className="text-[#f18a73]">human-led execution.</span>
             </>
           }
         />
 
-        <div className="mx-auto mt-12 grid max-w-6xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-          <p className="text-balance text-3xl font-semibold leading-tight text-white sm:text-4xl">
-            The tide lifts. It doesn&apos;t steer.
-          </p>
-
-          <div className="space-y-6 text-pretty text-xl leading-9 text-white/68">
-            <p>
-              We use AI where it makes the work faster and more consistent:
-              drafting, testing, research, the repetitive middle of a task. We
-              don&apos;t use it where judgment is the point.
-            </p>
-            <p>
-              Every piece of work has a named person accountable for it. A
-              model can speed up what they do. It doesn&apos;t replace their
-              review, and nothing reaches you without a person having looked
-              at it and signed off.
-            </p>
-          </div>
+        <div className="mx-auto mt-12 w-full max-w-[1500px] sm:mt-14">
+          <Image
+            alt="Project Atlas workflow showing AI-assisted research, implementation, testing, and human release approval."
+            className="h-auto w-full object-contain"
+            height={819}
+            sizes="(min-width: 1600px) 1500px, (min-width: 1024px) 95vw, 100vw"
+            src="/images/ai/how-we-use-ai-project-workflow.svg"
+            unoptimized
+            width={1920}
+          />
         </div>
-
-        <p className="mx-auto mt-14 max-w-4xl rounded-full border border-white/10 bg-white/[0.045] px-6 py-4 text-center text-base leading-7 text-white/72 sm:text-lg">
-          We work in the tools you already run: Jira, Slack, Notion, Microsoft
-          Teams, and more.
-        </p>
       </div>
     </section>
   );
