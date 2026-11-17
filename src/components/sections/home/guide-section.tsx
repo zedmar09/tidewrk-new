@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Handshake, Search, Wrench, type LucideIcon } from "lucide-react";
 
+import { SectionPill } from "@/components/ui/section-pill";
+
 import { GuideBackdrop } from "./guide/guide-backdrop";
 
 // Client names stay out until each client gives permission (see Website Direction §7).
@@ -68,9 +70,9 @@ export function GuideSection() {
 
       <div className="relative z-10 mx-auto max-w-[1540px]">
         <div className="mx-auto flex max-w-[1120px] flex-col items-center text-center">
-          <span className="inline-flex rounded-full border border-[#9fb2ca]/55 bg-[#061a37]/70 px-7 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white shadow-[0_10px_32px_rgba(0,9,29,0.24)] sm:text-sm">
+          <SectionPill>
             Why companies bet on us
-          </span>
+          </SectionPill>
 
           <h2 className="mt-7 text-balance text-[clamp(2.35rem,3.5vw,4rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-white">
             We’ve been the team companies bet on.{" "}

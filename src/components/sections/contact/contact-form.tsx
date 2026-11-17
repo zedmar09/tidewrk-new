@@ -81,7 +81,7 @@ export function ContactForm() {
   }
 
   return (
-    <div className="relative rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-5 shadow-[0_34px_120px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:p-7 lg:p-8">
+    <div className="relative rounded-[1.5rem] border border-white/10 bg-[#071A3A]/80 p-5 shadow-[0_34px_120px_rgba(0,0,0,0.2)] backdrop-blur-xl sm:p-7 lg:p-8">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#003f72] to-transparent"
@@ -153,7 +153,7 @@ export function ContactForm() {
           </label>
           <select
             aria-invalid={Boolean(errors.service)}
-            className="h-[3.25rem] w-full rounded-[0.9rem] border border-white/10 bg-[#02050a]/72 px-4 text-base text-white outline-none transition focus:border-[#003f72]/80 focus:ring-2 focus:ring-[#003f72]/45"
+            className="h-[3.25rem] w-full rounded-[0.9rem] border border-white/10 bg-[#071A3A] px-4 text-base text-white outline-none transition focus:border-[#0F4B92]/80 focus:ring-2 focus:ring-[#0F4B92]/45"
             id="service"
             name="service"
             onChange={(event) => updateField("service", event.target.value)}
@@ -177,7 +177,7 @@ export function ContactForm() {
           </label>
           <textarea
             aria-invalid={Boolean(errors.message)}
-            className="min-h-36 w-full resize-y rounded-[0.9rem] border border-white/10 bg-[#02050a]/72 px-4 py-3 text-base leading-7 text-white outline-none transition placeholder:text-white/30 focus:border-[#003f72]/80 focus:ring-2 focus:ring-[#003f72]/45"
+            className="min-h-36 w-full resize-y rounded-[0.9rem] border border-white/10 bg-[#071A3A] px-4 py-3 text-base leading-7 text-white outline-none transition placeholder:text-white/30 focus:border-[#0F4B92]/80 focus:ring-2 focus:ring-[#0F4B92]/45"
             id="message"
             name="message"
             onChange={(event) => updateField("message", event.target.value)}
@@ -223,7 +223,7 @@ function FormField({
       </label>
       <input
         aria-invalid={Boolean(error)}
-        className="h-[3.25rem] w-full rounded-[0.9rem] border border-white/10 bg-[#02050a]/72 px-4 text-base text-white outline-none transition placeholder:text-white/30 focus:border-[#003f72]/80 focus:ring-2 focus:ring-[#003f72]/45"
+        className="h-[3.25rem] w-full rounded-[0.9rem] border border-white/10 bg-[#071A3A] px-4 text-base text-white outline-none transition placeholder:text-white/30 focus:border-[#0F4B92]/80 focus:ring-2 focus:ring-[#0F4B92]/45"
         id={name}
         name={name}
         onChange={(event) => onChange(event.target.value)}

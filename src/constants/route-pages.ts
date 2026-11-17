@@ -15,6 +15,11 @@ export type RoutePageContent = {
   headline: string;
   subline: string;
   problem: string;
+  problemDisplay?: {
+    title: string;
+    accent: string;
+    body: string;
+  };
   empathy: string;
   proof: Point[];
   plan: Point[];
@@ -60,6 +65,11 @@ export const buildYourProduct: RoutePageContent = {
     "A full development team that builds your product from idea to launch, stays to support it, and hands you the code.",
   problem:
     "You can see the product. You can’t build it. And handing your vision, and your investors’ money, to the wrong team is the one mistake you can’t afford.",
+  problemDisplay: {
+    title: "You can see the product.",
+    accent: "You can’t build it.",
+    body: "And handing your vision, and your investors’ money, to the wrong team is the one mistake you can’t afford.",
+  },
   empathy:
     "You’re the visionary. Stick with that. Building it is what we do for a living.",
   proof: [

@@ -88,7 +88,6 @@ export function PromisesSection() {
       <div className="relative z-10 mx-auto max-w-[1540px]">
         <SectionHeading
           eyebrow="The same three, every engagement"
-          eyebrowTone="quiet"
           title="What you get in writing"
         />
 

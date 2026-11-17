@@ -7,20 +7,20 @@ import { ContactForm } from "./contact-form";
 
 export function ContactPage() {
   return (
-    <main className="relative overflow-hidden bg-[#02050a] text-white">
+    <main className="relative overflow-hidden bg-[#061F46] text-white">
       <section className="relative px-5 pb-14 pt-28 sm:px-8 sm:pb-18 sm:pt-32 lg:px-[6vw]">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(0,63,114,0.48),transparent_34%),radial-gradient(ellipse_at_15%_70%,rgba(0,63,114,0.2),transparent_28%),linear-gradient(180deg,#02050a_0%,#07111f_52%,#02050a_100%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(15,75,146,0.38),transparent_34%),radial-gradient(ellipse_at_15%_70%,rgba(15,75,146,0.22),transparent_28%),linear-gradient(180deg,#061F46_0%,#082854_52%,#061F46_100%)]"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#02050a] via-[#02050a]/82 to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#061F46] via-[#061F46]/82 to-transparent"
         />
 
         <div className="relative mx-auto max-w-[1500px] text-center">
           <h1 className="mx-auto max-w-5xl text-balance text-[3.2rem] font-semibold leading-[0.98] tracking-normal text-white sm:text-7xl lg:text-[6rem]">
-            Start a <span className="tidewrk-glow-text">conversation</span>
+            Start a <span className="text-[#E98973]">conversation</span>
           </h1>
           <p className="mx-auto mt-6 max-w-4xl text-pretty text-lg leading-8 text-white/66 sm:text-2xl sm:leading-10">
             {contactIntro}
@@ -30,7 +30,7 @@ export function ContactPage() {
 
       <section className="relative px-5 pb-20 sm:px-8 sm:pb-28 lg:px-[6vw]">
         <div className="mx-auto grid max-w-[1500px] gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-start lg:gap-16">
-          <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 backdrop-blur-xl sm:p-7 lg:p-8">
+          <div className="rounded-[1.5rem] border border-white/10 bg-[#071A3A]/80 p-5 backdrop-blur-xl sm:p-7 lg:p-8">
             <p className="text-sm font-semibold uppercase tracking-[0.14em] text-white/44">
               Contact information
             </p>
@@ -41,7 +41,7 @@ export function ContactPage() {
             <div className="mt-8 space-y-5">
               {contactLocations.map((location) => (
                 <article
-                  className="rounded-[1.2rem] border border-white/10 bg-[#02050a]/50 p-5"
+                  className="rounded-[1.2rem] border border-white/10 bg-[#071A3A] p-5"
                   key={location.region}
                 >
                   <h3 className="text-2xl font-semibold text-white">

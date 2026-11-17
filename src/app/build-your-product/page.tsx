@@ -9,5 +9,14 @@ export const metadata: Metadata = {
 };
 
 export default function BuildYourProductPage() {
-  return <RoutePage content={buildYourProduct} />;
+  return (
+    <RoutePage
+      content={buildYourProduct}
+      guideTitleAccent="Building it is what we do for a living."
+      guideVariant="homepage"
+      heroArtwork="/images/build-your-product/build-your-product-bg.svg"
+      heroTitleAccent="your big idea."
+      problemArtwork="/images/build-your-product/sound-familiar.svg"
+    />
+  );
 }

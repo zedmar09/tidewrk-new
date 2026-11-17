@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { CTA_TOP } from "@/components/layout/footer/cta-theme";
+import { SectionPill } from "@/components/ui/section-pill";
 import { siteConfig } from "@/constants/site";
 
 import { ClientTestimonials } from "./client-testimonials";
@@ -84,9 +85,7 @@ export function ProofSection() {
           swapped (§4.8 lists "Proof" as the H2): the full sentence carries the
           headline, "Proof" labels the section in the pill. No new copy. */}
       <div className="relative px-5 text-center sm:px-8">
-        <span className="inline-flex rounded-full border border-[#C8CCD0]/30 bg-[#071A3A] px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white shadow-[0_8px_30px_rgba(0,8,30,0.35)] sm:px-5 sm:py-2 sm:text-sm">
-          Proof
-        </span>
+        <SectionPill>Proof</SectionPill>
         <h2 className="mx-auto mt-5 max-w-[16ch] text-balance text-[clamp(2.3rem,4.2vw,3.75rem)] font-semibold leading-[1.08] tracking-[-0.01em] sm:max-w-none">
           Teams already running on this
         </h2>

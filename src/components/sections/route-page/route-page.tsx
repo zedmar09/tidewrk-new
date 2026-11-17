@@ -1,25 +1,80 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Check, Minus } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  Handshake,
+  Minus,
+  Search,
+  Wrench,
+  type LucideIcon,
+} from "lucide-react";
 
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { SectionHeading } from "@/components/sections/home/section-heading";
+import { SoftWaveJoin } from "@/components/sections/home/shared/soft-wave-join";
 import { CtaLink } from "@/components/ui/cta-link";
+import { SectionPill } from "@/components/ui/section-pill";
 import type { RoutePageContent } from "@/constants/route-pages";
 
 const sectionClass =
-  "relative overflow-hidden bg-[#02050a] px-5 py-20 text-white sm:px-8 md:py-28 lg:px-[6vw]";
+  "relative overflow-hidden bg-[#061F46] px-5 py-20 text-white sm:px-8 md:py-28 lg:px-[6vw]";
+
+const featuredGuideAssets: Array<{
+  image: string;
+  icon: LucideIcon;
+}> = [
+  {
+    image: "/images/guide/why-us-project-recovery.svg",
+    icon: Wrench,
+  },
+  {
+    image: "/images/guide/why-us-quality-scrutiny.svg",
+    icon: Search,
+  },
+  {
+    image: "/images/guide/why-us-client-referrals.svg",
+    icon: Handshake,
+  },
+];
 
 // Hero-page template (Website Direction §5.1). Section order is fixed:
 // hero → problem → guide → plan → promises → included → stakes → closing CTA (footer).
-export function RoutePage({ content }: { content: RoutePageContent }) {
+export function RoutePage({
+  content,
+  guideTitleAccent,
+  guideVariant = "default",
+  heroArtwork,
+  heroTitleAccent,
+  problemArtwork,
+}: {
+  content: RoutePageContent;
+  guideTitleAccent?: string;
+  guideVariant?: "default" | "homepage";
+  heroArtwork?: string;
+  heroTitleAccent?: string;
+  problemArtwork?: string;
+}) {
   return (
     <>
       <Navbar />
       <main>
-        <RouteHero content={content} />
-        <RouteProblem content={content} />
-        <RouteGuide content={content} />
+        <RouteHero
+          content={content}
+          heroArtwork={heroArtwork}
+          heroTitleAccent={heroTitleAccent}
+        />
+        <RouteProblem
+          content={content}
+          continuesHeroArtwork={Boolean(heroArtwork)}
+          problemArtwork={problemArtwork}
+        />
+        <RouteGuide
+          content={content}
+          titleAccent={guideTitleAccent}
+          variant={guideVariant}
+        />
         <RoutePlan content={content} />
         <RoutePromises content={content} />
         {content.included && <RouteIncluded content={content} />}
@@ -30,10 +85,20 @@ export function RoutePage({ content }: { content: RoutePageContent }) {
   );
 }
 
-function RouteHero({ content }: { content: RoutePageContent }) {
+function RouteHero({
+  content,
+  heroArtwork,
+  heroTitleAccent,
+}: {
+  content: RoutePageContent;
+  heroArtwork?: string;
+  heroTitleAccent?: string;
+}) {
   return (
     <PageHero
       eyebrow={content.menuLabel}
+      heroArtwork={heroArtwork}
+      heroTitleAccent={heroTitleAccent}
       subline={content.subline}
       title={content.headline}
     />
@@ -44,40 +109,160 @@ export function PageHero({
   eyebrow,
   title,
   subline,
+  heroArtwork,
+  heroTitleAccent,
 }: {
   eyebrow: string;
   title: string;
   subline: string;
+  heroArtwork?: string;
+  heroTitleAccent?: string;
 }) {
+  const hasArtwork = Boolean(heroArtwork);
+  const hasAccent = Boolean(
+    heroTitleAccent && title.endsWith(heroTitleAccent),
+  );
+  const titleLead = hasAccent
+    ? title.slice(0, -heroTitleAccent!.length).trim()
+    : title;
+
   return (
-    <section className="relative isolate flex min-h-[86svh] items-center overflow-hidden bg-[#02050a] px-5 pb-20 pt-28 text-white sm:px-8 lg:px-[6vw]">
+    <section
+      className={
+        hasArtwork
+          ? "relative isolate flex min-h-[46rem] items-start overflow-hidden bg-[#08245b] px-5 pb-24 pt-32 text-white sm:min-h-[50rem] sm:px-8 sm:pb-28 sm:pt-36 lg:min-h-[max(100svh,56.28vw)] lg:px-[6vw] lg:pb-24 lg:pt-32"
+          : "relative isolate flex min-h-[86svh] items-center overflow-hidden bg-[#061F46] px-5 pb-20 pt-28 text-white sm:px-8 lg:px-[6vw]"
+      }
+    >
+      {hasArtwork ? (
+        <>
+          <Image
+            alt=""
+            aria-hidden="true"
+            className="object-cover object-[70%_center] sm:object-[66%_center] md:object-[60%_center] lg:object-cover lg:object-center"
+            fill
+            priority
+            sizes="100vw"
+            src={heroArtwork!}
+            unoptimized
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(2,19,54,0.9)_0%,rgba(2,25,68,0.7)_46%,rgba(3,31,79,0.22)_72%,transparent_100%)] sm:bg-[linear-gradient(90deg,rgba(2,19,54,0.72)_0%,rgba(2,25,68,0.42)_40%,rgba(3,31,79,0.1)_64%,transparent_82%)] lg:bg-[linear-gradient(90deg,rgba(2,19,54,0.26)_0%,rgba(2,25,68,0.12)_34%,rgba(3,31,79,0.02)_56%,transparent_72%)]"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,transparent_0%,rgba(2,40,116,0.5)_58%,#022874_100%)]"
+          />
+        </>
+      ) : (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(15,75,146,0.38),transparent_45%),linear-gradient(180deg,#061F46_0%,#082854_50%,#061F46_100%)]"
+        />
+      )}
+
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(0,63,114,0.7),transparent_45%),linear-gradient(180deg,#02050a_0%,#07111f_50%,#02050a_100%)]"
-      />
-      <div className="relative mx-auto w-full max-w-6xl text-center">
-        <span className="tidewrk-glow-badge inline-flex rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.1em]">
-          {eyebrow}
-        </span>
-        <h1 className="mt-8 text-balance text-[clamp(2.4rem,10vw,3.4rem)] font-semibold leading-[1.04] tracking-normal sm:text-7xl lg:text-[5.2rem]">
-          {title}
-        </h1>
-        <p className="mx-auto mt-7 max-w-4xl text-pretty text-xl leading-9 text-white/72 sm:text-2xl sm:leading-10">
-          {subline}
-        </p>
-        <CtaLink className="mt-9" size="lg" />
+        className={
+          hasArtwork
+            ? "relative mx-auto w-full max-w-[1800px] text-left"
+            : "relative mx-auto w-full max-w-6xl text-center"
+        }
+      >
+        <div className={hasArtwork ? "max-w-[44rem]" : undefined}>
+          <SectionPill>{eyebrow}</SectionPill>
+          <h1
+            className={
+              hasArtwork
+                ? "mt-7 text-balance text-[clamp(2.6rem,4.9vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.01em]"
+                : "mt-8 text-balance text-[clamp(2.4rem,10vw,3.4rem)] font-semibold leading-[1.04] tracking-normal sm:text-7xl lg:text-[5.2rem]"
+            }
+          >
+            {hasAccent ? (
+              <>
+                <span className="block">{titleLead}</span>
+                <span className="block text-[#E98973]">
+                  {heroTitleAccent}
+                </span>
+              </>
+            ) : (
+              title
+            )}
+          </h1>
+          <p
+            className={
+              hasArtwork
+                ? "mt-5 max-w-[46rem] text-pretty text-[clamp(1rem,1.3vw,1.25rem)] font-normal leading-[1.5] text-[#E4E8EE]"
+                : "mx-auto mt-7 max-w-4xl text-pretty text-xl leading-9 text-white/72 sm:text-2xl sm:leading-10"
+            }
+          >
+            {subline}
+          </p>
+          <CtaLink className={hasArtwork ? "mt-7" : "mt-9"} size="lg" />
+        </div>
       </div>
     </section>
   );
 }
 
-function RouteProblem({ content }: { content: RoutePageContent }) {
+function RouteProblem({
+  content,
+  continuesHeroArtwork = false,
+  problemArtwork,
+}: {
+  content: RoutePageContent;
+  continuesHeroArtwork?: boolean;
+  problemArtwork?: string;
+}) {
+  const hasProblemArtwork = Boolean(
+    problemArtwork && content.problemDisplay,
+  );
+
+  if (hasProblemArtwork) {
+    const problemDisplay = content.problemDisplay!;
+
+    return (
+      <section className="relative -mt-px overflow-hidden bg-[linear-gradient(180deg,#022874_0%,#082854_38%,#061F46_100%)] px-5 py-20 text-white sm:px-8 md:py-28 lg:px-[6vw]">
+        <div className="relative mx-auto grid max-w-[1500px] items-center gap-12 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:gap-8 xl:gap-14">
+          <div className="max-w-[38rem]">
+            <SectionPill>Sound familiar?</SectionPill>
+            <h2 className="mt-7 text-balance text-[clamp(2.65rem,5vw,4.75rem)] font-semibold leading-[1.06] tracking-[-0.02em]">
+              <span className="block">{problemDisplay.title}</span>
+              <span className="mt-1 block text-[#E98973]">
+                {problemDisplay.accent}
+              </span>
+            </h2>
+            <p className="mt-7 max-w-[35rem] text-pretty text-lg leading-8 text-white/72 sm:text-xl sm:leading-9">
+              {problemDisplay.body}
+            </p>
+          </div>
+
+          <div className="relative mx-auto w-full max-w-[50rem] lg:ml-auto">
+            <Image
+              alt="A product owner reviewing a software product plan and delivery workflow"
+              className="h-auto w-full object-contain"
+              height={815}
+              sizes="(min-width: 1024px) 54vw, 100vw"
+              src={problemArtwork!}
+              unoptimized
+              width={1086}
+            />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className={sectionClass}>
+    <section
+      className={
+        continuesHeroArtwork
+          ? "relative -mt-px overflow-hidden bg-[linear-gradient(180deg,#022874_0%,#02266e_16%,#082854_52%,#061F46_100%)] px-5 py-20 text-white sm:px-8 md:py-28 lg:px-[6vw]"
+          : sectionClass
+      }
+    >
       <div className="mx-auto max-w-4xl">
-        <span className="tidewrk-glow-badge inline-flex rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.1em]">
-          Sound familiar?
-        </span>
+        <SectionPill>Sound familiar?</SectionPill>
         <p className="mt-7 text-balance text-3xl font-semibold leading-tight text-white sm:text-[2.6rem] sm:leading-[1.15]">
           {content.problem}
         </p>
@@ -86,19 +271,134 @@ function RouteProblem({ content }: { content: RoutePageContent }) {
   );
 }
 
-function RouteGuide({ content }: { content: RoutePageContent }) {
+function RouteGuideCardCurrent({ reversed = false }: { reversed?: boolean }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-x-0 bottom-0 h-28 w-full sm:h-32"
+      preserveAspectRatio="none"
+      viewBox="0 0 520 130"
+    >
+      <g transform={reversed ? "translate(520 0) scale(-1 1)" : undefined}>
+        <path
+          d="M0 67C76 91 147 57 223 45C319 30 386 72 520 16V130H0V67Z"
+          fill="#0a3a78"
+          opacity="0.92"
+        />
+        <path
+          d="M0 84C101 105 176 65 266 64C363 63 415 87 520 42V130H0V84Z"
+          fill="#0c4385"
+          opacity="0.5"
+        />
+      </g>
+    </svg>
+  );
+}
+
+function RouteGuide({
+  content,
+  titleAccent,
+  variant = "default",
+}: {
+  content: RoutePageContent;
+  titleAccent?: string;
+  variant?: "default" | "homepage";
+}) {
+  if (variant === "homepage") {
+    const hasAccent = Boolean(
+      titleAccent && content.empathy.endsWith(titleAccent),
+    );
+    const titleLead = hasAccent
+      ? content.empathy.slice(0, -titleAccent!.length).trim()
+      : content.empathy;
+
+    return (
+      <section
+        className="relative isolate -mt-px overflow-hidden bg-[#061F46] px-5 pb-20 pt-32 text-white sm:px-8 sm:pb-24 sm:pt-36 md:pt-40 lg:px-[2.5vw] lg:pb-24"
+        id="why-tidewrk"
+      >
+        <SoftWaveJoin
+          body="#061F46"
+          id="build-product-guide-join"
+          top="#061F46"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_28%,rgba(15,75,146,0.22),transparent_40%)]"
+        />
+
+        <div className="relative z-10 mx-auto max-w-[1540px]">
+          <div className="mx-auto flex max-w-[1120px] flex-col items-center text-center">
+            <SectionPill>Why Tidewrk</SectionPill>
+            <h2 className="mt-7 text-balance text-[clamp(2.35rem,3.5vw,4rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-white">
+              {titleLead}{" "}
+              {hasAccent && (
+                <span className="text-[#f18a73]">{titleAccent}</span>
+              )}
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-5 lg:mt-14 lg:grid-cols-3 lg:gap-5 xl:gap-6">
+            {content.proof.map((point, index) => {
+              const asset = featuredGuideAssets[index];
+              const Icon = asset.icon;
+
+              return (
+                <article
+                  className="relative flex min-h-[34rem] flex-col overflow-hidden rounded-[1.6rem] border border-[#9fb2ca]/45 bg-[#061d3d]/90 px-6 pb-24 pt-5 shadow-[0_22px_60px_rgba(0,9,29,0.24)] sm:px-9 sm:pt-7 lg:px-7 xl:px-9"
+                  key={point.title}
+                >
+                  <div className="relative z-10 flex h-52 items-center justify-center sm:h-60 lg:h-52 xl:h-60">
+                    <Image
+                      alt=""
+                      aria-hidden="true"
+                      className="h-full w-full object-contain"
+                      height={675}
+                      sizes="(min-width: 1024px) 30vw, 90vw"
+                      src={asset.image}
+                      unoptimized
+                      width={1200}
+                    />
+                  </div>
+
+                  <div className="relative z-10 mt-4">
+                    <div className="flex items-start gap-3">
+                      <Icon
+                        aria-hidden="true"
+                        className="mt-0.5 size-8 shrink-0 text-[#ff8a70]"
+                        strokeWidth={2.2}
+                      />
+                      <h3 className="text-[clamp(1.3rem,1.8vw,1.65rem)] font-semibold leading-[1.25] tracking-[-0.02em] text-white">
+                        {point.title}
+                      </h3>
+                    </div>
+                    <p className="mt-5 text-[clamp(1rem,1.2vw,1.2rem)] leading-[1.52] text-[#edf3fb]">
+                      {point.body}
+                    </p>
+                  </div>
+
+                  <RouteGuideCardCurrent reversed={index === 1} />
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className={sectionClass}>
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_10%,rgba(0,63,114,0.3),transparent_40%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_10%,rgba(15,75,146,0.3),transparent_40%)]"
       />
       <div className="relative mx-auto max-w-[1500px]">
         <SectionHeading eyebrow="Why Tidewrk" title={content.empathy} />
         <div className="mt-14 grid gap-5 md:grid-cols-3">
           {content.proof.map((point) => (
             <article
-              className="rounded-[1.25rem] border border-white/10 bg-white/[0.045] p-6 sm:p-7"
+              className="rounded-[1.25rem] border border-white/10 bg-[#071A3A]/80 p-6 sm:p-7"
               key={point.title}
             >
               <h3 className="text-2xl font-semibold leading-tight">{point.title}</h3>
@@ -141,10 +441,10 @@ export function StepsSection({
               className="relative flex gap-5 xl:block"
               key={step.title}
             >
-              <span className="relative z-10 flex size-14 shrink-0 items-center justify-center rounded-full border border-[#003f72]/70 bg-[#06111f] text-base font-semibold shadow-[0_0_28px_rgba(0,63,114,0.6)] xl:mx-auto">
+              <span className="relative z-10 flex size-14 shrink-0 items-center justify-center rounded-full border border-[#003f72]/70 bg-[#071A3A] text-base font-semibold shadow-[0_0_28px_rgba(0,63,114,0.6)] xl:mx-auto">
                 0{index + 1}
               </span>
-              <div className="flex-1 rounded-[1.25rem] border border-white/10 bg-white/[0.045] p-5 xl:mt-6 xl:text-center">
+              <div className="flex-1 rounded-[1.25rem] border border-white/10 bg-[#071A3A]/80 p-5 xl:mt-6 xl:text-center">
                 <h3 className="text-xl font-semibold leading-tight">{step.title}</h3>
                 <p className="mt-3 text-base leading-7 text-white/64">{step.body}</p>
               </div>
@@ -172,7 +472,7 @@ function RoutePromises({ content }: { content: RoutePageContent }) {
     <section className={sectionClass}>
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(0,63,114,0.3),transparent_45%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(15,75,146,0.3),transparent_45%)]"
       />
       <div className="relative mx-auto max-w-[1500px]">
         <SectionHeading eyebrow="Our promises" title="What you get in writing" />
@@ -180,7 +480,7 @@ function RoutePromises({ content }: { content: RoutePageContent }) {
           className={`mt-14 grid gap-px overflow-hidden rounded-[1.25rem] border border-white/10 bg-white/10 ${columns}`}
         >
           {content.promises.map((promise, index) => (
-            <article className="bg-[#050b14] p-7 sm:p-9" key={promise.title}>
+            <article className="bg-[#071A3A] p-7 sm:p-9" key={promise.title}>
               <span className="text-sm font-semibold uppercase tracking-[0.14em] text-white/34">
                 0{index + 1}
               </span>
@@ -222,7 +522,7 @@ function RouteIncluded({ content }: { content: RoutePageContent }) {
         <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {included.capabilities.map((capability) => (
             <Link
-              className="group flex flex-col rounded-[1.25rem] border border-white/10 bg-white/[0.045] p-6 transition hover:border-[#003f72]/70 hover:bg-white/[0.07]"
+              className="group flex flex-col rounded-[1.25rem] border border-white/10 bg-[#071A3A]/80 p-6 transition hover:border-[#003f72]/70 hover:bg-[#0A2148]"
               href={capability.href}
               key={capability.href}
             >

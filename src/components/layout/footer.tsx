@@ -4,6 +4,7 @@ import { ArrowUp } from "lucide-react";
 
 import tidewrkLogo from "@/assets/images/tidewrk-logo.svg";
 import { CtaLink } from "@/components/ui/cta-link";
+import { SectionPill } from "@/components/ui/section-pill";
 
 import { FOOTER_BG } from "./footer/cta-theme";
 import {
@@ -72,9 +73,7 @@ export function Footer() {
           className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-44 bg-[linear-gradient(180deg,rgba(0,19,58,0)_0%,#00133A_100%)]"
         />
         <div className="absolute inset-x-0 top-0 z-20 px-5 pt-[clamp(3.5rem,5.5vw,5.5rem)] text-center sm:px-8">
-          <span className="inline-flex rounded-full border border-[#C8CCD0]/30 bg-[#071A3A] px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white shadow-[0_8px_30px_rgba(0,8,30,0.35)] sm:px-5 sm:py-2 sm:text-sm">
-            The tide behind you.
-          </span>
+          <SectionPill>The tide behind you.</SectionPill>
           <h2 className="mx-auto mt-5 max-w-[16ch] text-balance text-[clamp(2.4rem,5vw,4.5rem)] font-semibold leading-[1.05] tracking-[-0.01em] md:max-w-none">
             Ready for your <span className="text-[#E98973]">next move?</span>
           </h2>

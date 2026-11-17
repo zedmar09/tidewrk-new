@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
+import { SectionPill } from "@/components/ui/section-pill";
+
 type PlaceholderPageHeroProps = {
   title: string;
   eyebrow?: string;
@@ -13,23 +15,21 @@ export function PlaceholderPageHero({
   description = "This page is being shaped. For now, use this as a clean placeholder while the full content and design are prepared.",
 }: PlaceholderPageHeroProps) {
   return (
-    <section className="relative isolate flex min-h-screen items-center overflow-hidden bg-[#02050a] px-5 py-28 text-white sm:px-8 lg:px-[6vw]">
+    <section className="relative isolate flex min-h-screen items-center overflow-hidden bg-[#061F46] px-5 py-28 text-white sm:px-8 lg:px-[6vw]">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(0,63,114,0.42),transparent_34%),radial-gradient(ellipse_at_15%_70%,rgba(0,63,114,0.2),transparent_28%),linear-gradient(180deg,#02050a_0%,#06111f_52%,#02050a_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(15,75,146,0.36),transparent_34%),radial-gradient(ellipse_at_15%_70%,rgba(15,75,146,0.22),transparent_28%),linear-gradient(180deg,#061F46_0%,#082854_52%,#061F46_100%)]"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#02050a] via-[#02050a]/86 to-transparent"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#061F46] via-[#061F46]/86 to-transparent"
       />
 
       <div className="relative mx-auto w-full max-w-[1280px]">
         <div className="max-w-4xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-3 py-2 text-sm font-medium text-white/72 backdrop-blur-md">
-            <span className="tidewrk-glow-badge rounded-full px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.08em]">
-              {eyebrow}
-            </span>
-            Page placeholder
+          <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-white/72">
+            <SectionPill>{eyebrow}</SectionPill>
+            <span>Page placeholder</span>
           </div>
 
           <h1 className="mt-8 text-balance text-[3.5rem] font-semibold leading-[0.98] tracking-normal text-white sm:text-7xl lg:text-[6.4rem]">
