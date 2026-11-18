@@ -158,6 +158,11 @@ export const scaleYourEngineeringTeam: RoutePageContent = {
     "Engineers who work inside your repo, your standards, and your ceremonies. You interview and approve every one, and critical roles have backup behind them.",
   problem:
     "The roadmap is committed and the team is short. You own the date no matter who writes the code, so the last thing you need is help that slows you down.",
+  problemDisplay: {
+    title: "The roadmap is committed.",
+    accent: "The team is short.",
+    body: "You own the date no matter who writes the code, so the last thing you need is help that slows you down.",
+  },
   empathy:
     "You’re accountable for the roadmap regardless of who writes the code. We staff so that stays comfortably true.",
   proof: [

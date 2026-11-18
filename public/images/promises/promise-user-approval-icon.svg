@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Approved team member</title>
+  <g fill="none" stroke="#4B88CE" stroke-linecap="round" stroke-linejoin="round" stroke-width="28">
+    <circle cx="228" cy="154" r="82"/>
+    <path d="M68 414c18-96 76-146 160-146 70 0 122 35 149 103"/>
+    <circle cx="390" cy="350" r="82" fill="#0A3A78"/>
+    <path d="m350 350 27 27 54-62" stroke="#8CCBFF" stroke-width="24"/>
+  </g>
+</svg>

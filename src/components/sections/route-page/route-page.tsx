@@ -63,6 +63,8 @@ export function RoutePage({
   planArtwork,
   planVariant = "default",
   problemArtwork,
+  problemArtworkAlt,
+  promisesArtwork,
   promisesVariant = "default",
   stakesVariant = "default",
 }: {
@@ -75,6 +77,8 @@ export function RoutePage({
   planArtwork?: string[];
   planVariant?: "default" | "carousel";
   problemArtwork?: string;
+  problemArtworkAlt?: string;
+  promisesArtwork?: string[];
   promisesVariant?: "default" | "homepage";
   stakesVariant?: "default" | "comparison";
 }) {
@@ -91,6 +95,7 @@ export function RoutePage({
           content={content}
           continuesHeroArtwork={Boolean(heroArtwork)}
           problemArtwork={problemArtwork}
+          problemArtworkAlt={problemArtworkAlt}
         />
         <RouteGuide
           content={content}
@@ -102,7 +107,11 @@ export function RoutePage({
           content={content}
           variant={planVariant}
         />
-        <RoutePromises content={content} variant={promisesVariant} />
+        <RoutePromises
+          artwork={promisesArtwork}
+          content={content}
+          variant={promisesVariant}
+        />
         {content.included && (
           <RouteIncluded content={content} variant={includedVariant} />
         )}
@@ -237,10 +246,12 @@ function RouteProblem({
   content,
   continuesHeroArtwork = false,
   problemArtwork,
+  problemArtworkAlt,
 }: {
   content: RoutePageContent;
   continuesHeroArtwork?: boolean;
   problemArtwork?: string;
+  problemArtworkAlt?: string;
 }) {
   const hasProblemArtwork = Boolean(
     problemArtwork && content.problemDisplay,
@@ -267,7 +278,10 @@ function RouteProblem({
 
           <div className="relative mx-auto w-full max-w-[50rem] lg:ml-auto">
             <Image
-              alt="A product owner reviewing a software product plan and delivery workflow"
+              alt={
+                problemArtworkAlt ??
+                "A product owner reviewing a software product plan and delivery workflow"
+              }
               className="h-auto w-full object-contain"
               height={815}
               sizes="(min-width: 1024px) 54vw, 100vw"
@@ -520,16 +534,21 @@ export function StepsSection({
 }
 
 function RoutePromises({
+  artwork = featuredPromiseAssets,
   content,
   variant = "default",
 }: {
+  artwork?: readonly string[];
   content: RoutePageContent;
   variant?: "default" | "homepage";
 }) {
   if (variant === "homepage") {
     const promiseCards = content.promises.map((promise, index) => ({
       ...promise,
-      image: featuredPromiseAssets[index] ?? featuredPromiseAssets[0],
+      image:
+        artwork[index] ??
+        featuredPromiseAssets[index] ??
+        featuredPromiseAssets[0],
       imageWidth: 1310,
       imageHeight: 1200,
     }));

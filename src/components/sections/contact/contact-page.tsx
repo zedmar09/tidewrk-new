@@ -2,20 +2,30 @@ import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import { Mail, MapPin, Phone } from "lucide-react";
 
+import { CTA_TOP } from "@/components/layout/footer/cta-theme";
 import { contactIntro, contactLocations } from "@/constants/contact";
 import { ContactForm } from "./contact-form";
 
 export function ContactPage() {
   return (
-    <main className="relative overflow-hidden bg-[#061F46] text-white">
+    <main
+      className="relative overflow-hidden text-white"
+      style={{ background: CTA_TOP }}
+    >
       <section className="relative px-5 pb-14 pt-28 sm:px-8 sm:pb-18 sm:pt-32 lg:px-[6vw]">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(15,75,146,0.38),transparent_34%),radial-gradient(ellipse_at_15%_70%,rgba(15,75,146,0.22),transparent_28%),linear-gradient(180deg,#061F46_0%,#082854_52%,#061F46_100%)]"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background: `radial-gradient(ellipse at 50% 0%, rgba(15,75,146,0.38), transparent 34%), radial-gradient(ellipse at 15% 70%, rgba(15,75,146,0.22), transparent 28%), linear-gradient(180deg, ${CTA_TOP} 0%, #082854 52%, ${CTA_TOP} 100%)`,
+          }}
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#061F46] via-[#061F46]/82 to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-40"
+          style={{
+            background: `linear-gradient(0deg, ${CTA_TOP} 0%, rgba(2,44,105,0.82) 55%, transparent 100%)`,
+          }}
         />
 
         <div className="relative mx-auto max-w-[1500px] text-center">
