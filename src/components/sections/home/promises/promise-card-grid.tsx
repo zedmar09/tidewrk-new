@@ -78,13 +78,17 @@ export function PromiseCardGrid({
   items: PromiseCardItem[];
   idPrefix: string;
 }) {
+  const hasTwoCards = items.length === 2;
   const hasFourCards = items.length === 4;
+  const gridLayout = hasFourCards
+    ? "md:grid-cols-2 xl:grid-cols-4"
+    : hasTwoCards
+      ? "mx-auto max-w-[1040px] md:grid-cols-2"
+      : "lg:grid-cols-3";
 
   return (
     <div
-      className={`mt-12 grid gap-5 lg:mt-14 lg:gap-5 xl:gap-6 ${
-        hasFourCards ? "md:grid-cols-2 xl:grid-cols-4" : "lg:grid-cols-3"
-      }`}
+      className={`mt-12 grid gap-5 lg:mt-14 lg:gap-5 xl:gap-6 ${gridLayout}`}
     >
       {items.map((item, index) => (
         <article

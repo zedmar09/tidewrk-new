@@ -9,7 +9,7 @@ import {
 import { SectionHeading } from "@/components/sections/home/section-heading";
 import {
   PageHero,
-  StepsSection,
+  PlanCarouselSection,
 } from "@/components/sections/route-page/route-page";
 import { SectionPill } from "@/components/ui/section-pill";
 
@@ -83,7 +83,14 @@ export default function HowWeWorkPage() {
           </div>
         </section>
 
-        <StepsSection
+        <PlanCarouselSection
+          artwork={[
+            "/images/build-your-product/tidewrk_how_it_works_step_01.svg",
+            "/images/build-your-product/tidewrk_how_it_works_step_02.svg",
+            "/images/build-your-product/tidewrk_how_it_works_step_03.svg",
+            "/images/build-your-product/tidewrk_how_it_works_step_04.svg",
+            "/images/build-your-product/tidewrk_how_it_works_step_05.svg",
+          ]}
           eyebrow="The plan"
           id="the-plan"
           steps={mainPlan}
