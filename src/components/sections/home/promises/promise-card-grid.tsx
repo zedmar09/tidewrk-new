@@ -8,7 +8,15 @@ export type PromiseCardItem = {
   imageHeight: number;
 };
 
-function CardTides({ index, idPrefix }: { index: number; idPrefix: string }) {
+function CardTides({
+  index,
+  idPrefix,
+  totalItems,
+}: {
+  index: number;
+  idPrefix: string;
+  totalItems: number;
+}) {
   const backGradientId = `${idPrefix}-tide-back-${index}`;
   const frontGradientId = `${idPrefix}-tide-front-${index}`;
 
@@ -18,9 +26,12 @@ function CardTides({ index, idPrefix }: { index: number; idPrefix: string }) {
       className="pointer-events-none absolute inset-x-0 top-0 h-28 overflow-hidden sm:h-32"
     >
       <svg
-        className="absolute top-0 h-full w-[300%] max-w-none"
+        className="absolute top-0 h-full max-w-none"
         preserveAspectRatio="none"
-        style={{ left: `${index * -100}%` }}
+        style={{
+          left: `${index * -100}%`,
+          width: `${totalItems * 100}%`,
+        }}
         viewBox="0 0 1560 130"
       >
         <defs>
@@ -67,14 +78,24 @@ export function PromiseCardGrid({
   items: PromiseCardItem[];
   idPrefix: string;
 }) {
+  const hasFourCards = items.length === 4;
+
   return (
-    <div className="mt-12 grid gap-5 lg:mt-14 lg:grid-cols-3 lg:gap-5 xl:gap-6">
+    <div
+      className={`mt-12 grid gap-5 lg:mt-14 lg:gap-5 xl:gap-6 ${
+        hasFourCards ? "md:grid-cols-2 xl:grid-cols-4" : "lg:grid-cols-3"
+      }`}
+    >
       {items.map((item, index) => (
         <article
           className="relative min-h-[30rem] overflow-hidden rounded-[1.6rem] border border-[#9fb2ca]/45 bg-[#061d3d]/90 px-7 pb-12 pt-36 shadow-[0_22px_60px_rgba(0,9,29,0.22)] sm:min-h-[32rem] sm:px-9 sm:pt-40 lg:px-7 xl:px-9"
           key={item.title}
         >
-          <CardTides idPrefix={idPrefix} index={index} />
+          <CardTides
+            idPrefix={idPrefix}
+            index={index}
+            totalItems={items.length}
+          />
 
           <Image
             alt=""
@@ -87,7 +108,11 @@ export function PromiseCardGrid({
             width={item.imageWidth}
           />
 
-          <div className="relative z-10 sm:pl-[22%] lg:pl-[26%]">
+          <div
+            className={`relative z-10 sm:pl-[22%] ${
+              hasFourCards ? "xl:pl-[20%]" : "lg:pl-[26%]"
+            }`}
+          >
             <div className="flex items-end gap-2">
               <span className="text-[clamp(2.8rem,4.2vw,4.4rem)] font-semibold leading-none tracking-[-0.055em] text-white">
                 0{index + 1}
