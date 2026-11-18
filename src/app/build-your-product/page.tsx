@@ -16,7 +16,18 @@ export default function BuildYourProductPage() {
       guideVariant="homepage"
       heroArtwork="/images/build-your-product/build-your-product-bg.svg"
       heroTitleAccent="your big idea."
+      includedVariant="team-coverage"
+      planArtwork={[
+        "/images/build-your-product/tidewrk_how_it_works_step_01.svg",
+        "/images/build-your-product/tidewrk_how_it_works_step_02.svg",
+        "/images/build-your-product/tidewrk_how_it_works_step_03.svg",
+        "/images/build-your-product/tidewrk_how_it_works_step_04.svg",
+        "/images/build-your-product/tidewrk_how_it_works_step_05.svg",
+      ]}
+      planVariant="carousel"
       problemArtwork="/images/build-your-product/sound-familiar.svg"
+      promisesVariant="homepage"
+      stakesVariant="comparison"
     />
   );
 }

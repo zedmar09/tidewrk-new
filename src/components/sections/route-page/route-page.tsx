@@ -12,11 +12,17 @@ import {
 
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { PromiseCardGrid } from "@/components/sections/home/promises/promise-card-grid";
+import { PromisesBackdrop } from "@/components/sections/home/promises/promises-backdrop";
 import { SectionHeading } from "@/components/sections/home/section-heading";
 import { SoftWaveJoin } from "@/components/sections/home/shared/soft-wave-join";
 import { CtaLink } from "@/components/ui/cta-link";
 import { SectionPill } from "@/components/ui/section-pill";
 import type { RoutePageContent } from "@/constants/route-pages";
+
+import { IncludedTeamSection } from "./included-team-section";
+import { PlanCarousel } from "./plan-carousel";
+import { StakesComparisonSection } from "./stakes-comparison-section";
 
 const sectionClass =
   "relative overflow-hidden bg-[#061F46] px-5 py-20 text-white sm:px-8 md:py-28 lg:px-[6vw]";
@@ -39,6 +45,12 @@ const featuredGuideAssets: Array<{
   },
 ];
 
+const featuredPromiseAssets = [
+  "/images/promises/promise-ownership-icon.svg",
+  "/images/promises/promise-redundancy-icon.svg",
+  "/images/promises/promise-workflow-icon.svg",
+] as const;
+
 // Hero-page template (Website Direction §5.1). Section order is fixed:
 // hero → problem → guide → plan → promises → included → stakes → closing CTA (footer).
 export function RoutePage({
@@ -47,14 +59,24 @@ export function RoutePage({
   guideVariant = "default",
   heroArtwork,
   heroTitleAccent,
+  includedVariant = "default",
+  planArtwork,
+  planVariant = "default",
   problemArtwork,
+  promisesVariant = "default",
+  stakesVariant = "default",
 }: {
   content: RoutePageContent;
   guideTitleAccent?: string;
   guideVariant?: "default" | "homepage";
   heroArtwork?: string;
   heroTitleAccent?: string;
+  includedVariant?: "default" | "team-coverage";
+  planArtwork?: string[];
+  planVariant?: "default" | "carousel";
   problemArtwork?: string;
+  promisesVariant?: "default" | "homepage";
+  stakesVariant?: "default" | "comparison";
 }) {
   return (
     <>
@@ -75,10 +97,16 @@ export function RoutePage({
           titleAccent={guideTitleAccent}
           variant={guideVariant}
         />
-        <RoutePlan content={content} />
-        <RoutePromises content={content} />
-        {content.included && <RouteIncluded content={content} />}
-        <RouteStakes content={content} />
+        <RoutePlan
+          artwork={planArtwork}
+          content={content}
+          variant={planVariant}
+        />
+        <RoutePromises content={content} variant={promisesVariant} />
+        {content.included && (
+          <RouteIncluded content={content} variant={includedVariant} />
+        )}
+        <RouteStakes content={content} variant={stakesVariant} />
       </main>
       <Footer />
     </>
@@ -169,12 +197,12 @@ export function PageHero({
             : "relative mx-auto w-full max-w-6xl text-center"
         }
       >
-        <div className={hasArtwork ? "max-w-[44rem]" : undefined}>
+        <div className={hasArtwork ? "max-w-[50rem]" : undefined}>
           <SectionPill>{eyebrow}</SectionPill>
           <h1
             className={
               hasArtwork
-                ? "mt-7 text-balance text-[clamp(2.6rem,4.9vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.01em]"
+                ? "mt-7 max-w-[44rem] text-balance text-[clamp(2.6rem,4.9vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.01em]"
                 : "mt-8 text-balance text-[clamp(2.4rem,10vw,3.4rem)] font-semibold leading-[1.04] tracking-normal sm:text-7xl lg:text-[5.2rem]"
             }
           >
@@ -192,7 +220,7 @@ export function PageHero({
           <p
             className={
               hasArtwork
-                ? "mt-5 max-w-[46rem] text-pretty text-[clamp(1rem,1.3vw,1.25rem)] font-normal leading-[1.5] text-[#E4E8EE]"
+                ? "mt-5 max-w-[42rem] text-pretty text-[clamp(1rem,1.3vw,1.25rem)] font-normal leading-[1.5] text-[#E4E8EE]"
                 : "mx-auto mt-7 max-w-4xl text-pretty text-xl leading-9 text-white/72 sm:text-2xl sm:leading-10"
             }
           >
@@ -411,7 +439,38 @@ function RouteGuide({
   );
 }
 
-function RoutePlan({ content }: { content: RoutePageContent }) {
+function RoutePlan({
+  artwork = [],
+  content,
+  variant = "default",
+}: {
+  artwork?: string[];
+  content: RoutePageContent;
+  variant?: "default" | "carousel";
+}) {
+  if (variant === "carousel") {
+    return (
+      <section className="relative isolate -mt-px overflow-hidden bg-[linear-gradient(180deg,#061F46_0%,#061F46_72%,#082854_100%)] px-0 pb-24 pt-32 text-white sm:pb-28 sm:pt-36 md:pb-32 md:pt-40">
+        <SoftWaveJoin
+          body="#061F46"
+          id="build-product-plan-join"
+          top="#061F46"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(15,75,146,0.2),transparent_44%)]"
+        />
+
+        <div className="relative z-10 mx-auto max-w-[1800px]">
+          <div className="px-5 sm:px-8 lg:px-[6vw]">
+            <SectionHeading eyebrow="The plan" title="How this works" />
+          </div>
+          <PlanCarousel images={artwork} steps={content.plan} />
+        </div>
+      </section>
+    );
+  }
+
   return <StepsSection eyebrow="The plan" steps={content.plan} title="How this works" />;
 }
 
@@ -460,7 +519,39 @@ export function StepsSection({
   );
 }
 
-function RoutePromises({ content }: { content: RoutePageContent }) {
+function RoutePromises({
+  content,
+  variant = "default",
+}: {
+  content: RoutePageContent;
+  variant?: "default" | "homepage";
+}) {
+  if (variant === "homepage") {
+    const promiseCards = content.promises.map((promise, index) => ({
+      ...promise,
+      image: featuredPromiseAssets[index] ?? featuredPromiseAssets[0],
+      imageWidth: 1310,
+      imageHeight: 1200,
+    }));
+
+    return (
+      <section className="relative isolate -mt-px overflow-hidden bg-[#061F46] px-5 pb-24 pt-24 text-white sm:px-8 sm:pb-28 sm:pt-28 md:pb-32 md:pt-32 lg:px-[2.5vw] lg:pt-28">
+        <PromisesBackdrop />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_62%,rgba(15,75,146,0.18),transparent_46%)]"
+        />
+        <div className="relative z-10 mx-auto max-w-[1540px]">
+          <SectionHeading eyebrow="Our promises" title="What you get in writing" />
+          <PromiseCardGrid
+            idPrefix="build-product-promise"
+            items={promiseCards}
+          />
+        </div>
+      </section>
+    );
+  }
+
   const columns =
     content.promises.length === 4
       ? "md:grid-cols-2 xl:grid-cols-4"
@@ -494,8 +585,18 @@ function RoutePromises({ content }: { content: RoutePageContent }) {
   );
 }
 
-function RouteIncluded({ content }: { content: RoutePageContent }) {
+function RouteIncluded({
+  content,
+  variant = "default",
+}: {
+  content: RoutePageContent;
+  variant?: "default" | "team-coverage";
+}) {
   const included = content.included!;
+
+  if (variant === "team-coverage") {
+    return <IncludedTeamSection included={included} />;
+  }
 
   return (
     <section className={sectionClass}>
@@ -556,7 +657,17 @@ function RouteIncluded({ content }: { content: RoutePageContent }) {
   );
 }
 
-function RouteStakes({ content }: { content: RoutePageContent }) {
+function RouteStakes({
+  content,
+  variant = "default",
+}: {
+  content: RoutePageContent;
+  variant?: "default" | "comparison";
+}) {
+  if (variant === "comparison") {
+    return <StakesComparisonSection stakes={content.stakes} />;
+  }
+
   return (
     <section className={sectionClass}>
       <div className="mx-auto max-w-[1300px]">
