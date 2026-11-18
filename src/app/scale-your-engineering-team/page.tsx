@@ -9,5 +9,13 @@ export const metadata: Metadata = {
 };
 
 export default function ScaleYourEngineeringTeamPage() {
-  return <RoutePage content={scaleYourEngineeringTeam} />;
+  return (
+    <RoutePage
+      content={scaleYourEngineeringTeam}
+      heroArtwork="/images/scale-your-engineering-team/scale-your-engineering-team-bg.svg"
+      heroTitleAccent="your roadmap."
+      includedVariant="team-coverage"
+      stakesVariant="comparison"
+    />
+  );
 }
