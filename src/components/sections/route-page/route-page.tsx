@@ -147,15 +147,18 @@ export function PageHero({
   title,
   subline,
   heroArtwork,
+  heroLayout = "left",
   heroTitleAccent,
 }: {
   eyebrow: string;
   title: string;
   subline: string;
   heroArtwork?: string;
+  heroLayout?: "left" | "center";
   heroTitleAccent?: string;
 }) {
   const hasArtwork = Boolean(heroArtwork);
+  const hasCenteredArtwork = hasArtwork && heroLayout === "center";
   const hasAccent = Boolean(
     heroTitleAccent && title.endsWith(heroTitleAccent),
   );
@@ -176,7 +179,11 @@ export function PageHero({
           <Image
             alt=""
             aria-hidden="true"
-            className="object-cover object-[70%_center] sm:object-[66%_center] md:object-[60%_center] lg:object-cover lg:object-center"
+            className={
+              hasCenteredArtwork
+                ? "object-cover object-center"
+                : "object-cover object-[70%_center] sm:object-[66%_center] md:object-[60%_center] lg:object-cover lg:object-center"
+            }
             fill
             priority
             sizes="100vw"
@@ -185,7 +192,11 @@ export function PageHero({
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(2,19,54,0.9)_0%,rgba(2,25,68,0.7)_46%,rgba(3,31,79,0.22)_72%,transparent_100%)] sm:bg-[linear-gradient(90deg,rgba(2,19,54,0.72)_0%,rgba(2,25,68,0.42)_40%,rgba(3,31,79,0.1)_64%,transparent_82%)] lg:bg-[linear-gradient(90deg,rgba(2,19,54,0.26)_0%,rgba(2,25,68,0.12)_34%,rgba(3,31,79,0.02)_56%,transparent_72%)]"
+            className={
+              hasCenteredArtwork
+                ? "pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(1,15,42,0.2)_0%,rgba(1,15,42,0.08)_52%,rgba(1,15,42,0.22)_100%)]"
+                : "pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(2,19,54,0.9)_0%,rgba(2,25,68,0.7)_46%,rgba(3,31,79,0.22)_72%,transparent_100%)] sm:bg-[linear-gradient(90deg,rgba(2,19,54,0.72)_0%,rgba(2,25,68,0.42)_40%,rgba(3,31,79,0.1)_64%,transparent_82%)] lg:bg-[linear-gradient(90deg,rgba(2,19,54,0.26)_0%,rgba(2,25,68,0.12)_34%,rgba(3,31,79,0.02)_56%,transparent_72%)]"
+            }
           />
           <div
             aria-hidden="true"
@@ -201,16 +212,28 @@ export function PageHero({
 
       <div
         className={
-          hasArtwork
+          hasCenteredArtwork
+            ? "relative mx-auto w-full max-w-[1800px] translate-y-6 text-center sm:translate-y-8 lg:translate-y-10"
+            : hasArtwork
             ? "relative mx-auto w-full max-w-[1800px] text-left"
             : "relative mx-auto w-full max-w-6xl text-center"
         }
       >
-        <div className={hasArtwork ? "max-w-[50rem]" : undefined}>
+        <div
+          className={
+            hasCenteredArtwork
+              ? "mx-auto max-w-[62rem]"
+              : hasArtwork
+                ? "max-w-[50rem]"
+                : undefined
+          }
+        >
           <SectionPill>{eyebrow}</SectionPill>
           <h1
             className={
-              hasArtwork
+              hasCenteredArtwork
+                ? "mt-7 text-balance text-[clamp(3rem,6vw,6rem)] font-semibold leading-[0.98] tracking-[-0.02em]"
+                : hasArtwork
                 ? "mt-7 max-w-[44rem] text-balance text-[clamp(2.6rem,4.9vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.01em]"
                 : "mt-8 text-balance text-[clamp(2.4rem,10vw,3.4rem)] font-semibold leading-[1.04] tracking-normal sm:text-7xl lg:text-[5.2rem]"
             }
@@ -228,7 +251,9 @@ export function PageHero({
           </h1>
           <p
             className={
-              hasArtwork
+              hasCenteredArtwork
+                ? "mx-auto mt-6 max-w-4xl text-pretty text-[clamp(1rem,1.5vw,1.3rem)] font-normal leading-[1.55] text-[#E4E8EE]"
+                : hasArtwork
                 ? "mt-5 max-w-[42rem] text-pretty text-[clamp(1rem,1.3vw,1.25rem)] font-normal leading-[1.5] text-[#E4E8EE]"
                 : "mx-auto mt-7 max-w-4xl text-pretty text-xl leading-9 text-white/72 sm:text-2xl sm:leading-10"
             }
@@ -464,28 +489,54 @@ function RoutePlan({
 }) {
   if (variant === "carousel") {
     return (
-      <section className="relative isolate -mt-px overflow-hidden bg-[linear-gradient(180deg,#061F46_0%,#061F46_72%,#082854_100%)] px-0 pb-24 pt-32 text-white sm:pb-28 sm:pt-36 md:pb-32 md:pt-40">
-        <SoftWaveJoin
-          body="#061F46"
-          id="build-product-plan-join"
-          top="#061F46"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(15,75,146,0.2),transparent_44%)]"
-        />
-
-        <div className="relative z-10 mx-auto max-w-[1800px]">
-          <div className="px-5 sm:px-8 lg:px-[6vw]">
-            <SectionHeading eyebrow="The plan" title="How this works" />
-          </div>
-          <PlanCarousel images={artwork} steps={content.plan} />
-        </div>
-      </section>
+      <PlanCarouselSection
+        artwork={artwork}
+        eyebrow="The plan"
+        steps={content.plan}
+        title="How this works"
+      />
     );
   }
 
   return <StepsSection eyebrow="The plan" steps={content.plan} title="How this works" />;
+}
+
+export function PlanCarouselSection({
+  artwork,
+  eyebrow,
+  id,
+  steps,
+  title,
+}: {
+  artwork: string[];
+  eyebrow: string;
+  id?: string;
+  steps: Array<{ title: string; body: string }>;
+  title: string;
+}) {
+  return (
+    <section
+      className="relative isolate -mt-px scroll-mt-16 overflow-hidden bg-[linear-gradient(180deg,#061F46_0%,#061F46_72%,#082854_100%)] px-0 pb-24 pt-32 text-white sm:pb-28 sm:pt-36 md:pb-32 md:pt-40"
+      id={id}
+    >
+      <SoftWaveJoin
+        body="#061F46"
+        id={`${id ?? "route-plan"}-join`}
+        top="#061F46"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(15,75,146,0.2),transparent_44%)]"
+      />
+
+      <div className="relative z-10 mx-auto max-w-[1800px]">
+        <div className="px-5 sm:px-8 lg:px-[6vw]">
+          <SectionHeading eyebrow={eyebrow} title={title} />
+        </div>
+        <PlanCarousel images={artwork} steps={steps} />
+      </div>
+    </section>
+  );
 }
 
 export function StepsSection({

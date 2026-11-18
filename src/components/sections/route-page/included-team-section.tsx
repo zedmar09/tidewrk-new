@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { FaAws } from "react-icons/fa";
 import type { IconType } from "react-icons";
 import {
@@ -140,10 +141,22 @@ const roleAvatars: Record<string, string> = {
     "/images/build-your-product/team-role-project-manager.svg",
 };
 
-export function IncludedTeamSection({ included }: { included: IncludedContent }) {
+export function IncludedTeamSection({
+  included,
+  linkCapabilities = false,
+  topColor = "#061F46",
+}: {
+  included: IncludedContent;
+  linkCapabilities?: boolean;
+  topColor?: string;
+}) {
   return (
     <section className="relative isolate -mt-px overflow-hidden bg-[#061F46] px-5 pb-24 pt-32 text-white sm:px-8 sm:pb-28 sm:pt-36 md:pb-32 md:pt-40 lg:px-[4vw]">
-      <SoftWaveJoin body="#061F46" id="build-product-included-join" top="#061F46" />
+      <SoftWaveJoin
+        body="#061F46"
+        id="build-product-included-join"
+        top={topColor}
+      />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_34%,rgba(15,75,146,0.22),transparent_48%)]"
@@ -192,12 +205,13 @@ export function IncludedTeamSection({ included }: { included: IncludedContent })
         <div className="mt-16 grid gap-4 sm:mt-20 lg:grid-cols-2">
           {included.capabilities.map((capability) => {
             const tools = toolGroups[capability.href] ?? [];
-
-            return (
-              <article
-                className="flex flex-col rounded-[1.5rem] border border-[#9fb2ca]/30 bg-[#071A3A]/88 px-6 py-7 sm:px-8 sm:py-8 xl:px-10"
-                key={capability.href}
-              >
+            const cardClassName = `flex flex-col rounded-[1.5rem] border border-[#9fb2ca]/30 bg-[#071A3A]/88 px-6 py-7 sm:px-8 sm:py-8 xl:px-10 ${
+              linkCapabilities
+                ? "transition hover:border-[#8cc9ff]/60 hover:bg-[#0A2148] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8cc9ff]/80"
+                : ""
+            }`;
+            const cardContent = (
+              <>
                 <h3 className="text-[clamp(1.35rem,2vw,1.85rem)] font-semibold leading-tight text-white">
                   {capability.title}
                 </h3>
@@ -226,6 +240,23 @@ export function IncludedTeamSection({ included }: { included: IncludedContent })
                     );
                   })}
                 </div>
+              </>
+            );
+
+            return linkCapabilities ? (
+              <Link
+                className={cardClassName}
+                href={capability.href}
+                key={capability.href}
+              >
+                {cardContent}
+              </Link>
+            ) : (
+              <article
+                className={cardClassName}
+                key={capability.href}
+              >
+                {cardContent}
               </article>
             );
           })}
