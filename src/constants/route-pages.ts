@@ -240,6 +240,11 @@ export const runYourBackOffice: RoutePageContent = {
     "An embedded operations team for the process work that keeps your business running, trained on how you do it and backed up so nothing drops.",
   problem:
     "The work that keeps the business running rests on one or two people. If either of them is out, it stops.",
+  problemDisplay: {
+    title: "The work that keeps the business running",
+    accent: "rests on one or two people.",
+    body: "If either of them is out, it stops.",
+  },
   empathy:
     "This work only counts if it’s still handled six months from now. We build for continuity, not coverage.",
   proof: [
@@ -312,6 +317,11 @@ export const freeUpYourTime: RoutePageContent = {
     "A dedicated assistant trained on your recurring work, so your calendar goes back to the job only you can do.",
   problem:
     "Your calendar is full and none of it is the job you were hired to do. You can’t justify a full-time hire, and you can’t keep doing it yourself.",
+  problemDisplay: {
+    title: "Your calendar is full.",
+    accent: "None of it is the job you were hired to do.",
+    body: "You can’t justify a full-time hire, and you can’t keep doing it yourself.",
+  },
   empathy:
     "You shouldn’t have to choose between doing it yourself and hiring someone full time.",
   proof: [

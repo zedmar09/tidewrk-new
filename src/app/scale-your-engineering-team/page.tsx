@@ -27,6 +27,8 @@ export default function ScaleYourEngineeringTeamPage() {
       planVariant="carousel"
       problemArtwork="/images/scale-your-engineering-team/scale-your-engineering-team-sound-familiar.svg"
       problemArtworkAlt="A committed software roadmap showing delivery milestones and open engineering capacity"
+      problemArtworkHeight={1024}
+      problemArtworkWidth={1536}
       promisesArtwork={[
         "/images/promises/promise-workflow-icon.svg",
         "/images/promises/promise-user-approval-icon.svg",
