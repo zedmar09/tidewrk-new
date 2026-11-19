@@ -56,6 +56,8 @@ const withYourTeam = [
 
 const sectionClass =
   "relative bg-[#061F46] px-5 py-20 text-white sm:px-8 md:py-28 lg:px-[6vw]";
+const executiveSectionClass =
+  "relative -mt-px bg-[linear-gradient(180deg,#022874_0%,#061F46_22%,#061F46_100%)] px-5 py-20 text-white sm:px-8 md:py-28 lg:px-[6vw]";
 
 export default function HowWeWorkPage() {
   return (
@@ -64,12 +66,18 @@ export default function HowWeWorkPage() {
       <main>
         <PageHero
           eyebrow="How We Work"
+          heroArtwork="/images/how-we-work/how-we-work-bg.svg"
+          heroLayout="center"
+          showEyebrow={false}
           subline="The same plan and the same three promises, whatever we’re doing for you."
           title="How we work"
         />
 
         {/* Executive Advisory is how every engagement starts, not a separate service line. */}
-        <section className={`${sectionClass} scroll-mt-16`} id="executive-advisory">
+        <section
+          className={`${executiveSectionClass} scroll-mt-16`}
+          id="executive-advisory"
+        >
           <div className="mx-auto max-w-4xl">
             <SectionPill>Executive Advisory</SectionPill>
             <h2 className="mt-6 text-balance text-4xl font-semibold leading-tight sm:text-5xl">

@@ -149,6 +149,7 @@ export function PageHero({
   heroArtwork,
   heroLayout = "left",
   heroTitleAccent,
+  showEyebrow = true,
 }: {
   eyebrow: string;
   title: string;
@@ -156,6 +157,7 @@ export function PageHero({
   heroArtwork?: string;
   heroLayout?: "left" | "center";
   heroTitleAccent?: string;
+  showEyebrow?: boolean;
 }) {
   const hasArtwork = Boolean(heroArtwork);
   const hasCenteredArtwork = hasArtwork && heroLayout === "center";
@@ -228,15 +230,15 @@ export function PageHero({
                 : undefined
           }
         >
-          <SectionPill>{eyebrow}</SectionPill>
+          {showEyebrow && <SectionPill>{eyebrow}</SectionPill>}
           <h1
-            className={
+            className={`${showEyebrow ? (hasArtwork ? "mt-7" : "mt-8") : "mt-0"} ${
               hasCenteredArtwork
-                ? "mt-7 text-balance text-[clamp(3rem,6vw,6rem)] font-semibold leading-[0.98] tracking-[-0.02em]"
+                ? "text-balance text-[clamp(3rem,6vw,6rem)] font-semibold leading-[0.98] tracking-[-0.02em]"
                 : hasArtwork
-                ? "mt-7 max-w-[44rem] text-balance text-[clamp(2.6rem,4.9vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.01em]"
-                : "mt-8 text-balance text-[clamp(2.4rem,10vw,3.4rem)] font-semibold leading-[1.04] tracking-normal sm:text-7xl lg:text-[5.2rem]"
-            }
+                  ? "max-w-[44rem] text-balance text-[clamp(2.6rem,4.9vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.01em]"
+                  : "text-balance text-[clamp(2.4rem,10vw,3.4rem)] font-semibold leading-[1.04] tracking-normal sm:text-7xl lg:text-[5.2rem]"
+            }`}
           >
             {hasAccent ? (
               <>

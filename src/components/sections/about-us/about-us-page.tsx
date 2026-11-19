@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { CheckCircle2, Compass, Workflow } from "lucide-react";
 
 import { CtaLink } from "@/components/ui/cta-link";
@@ -33,28 +34,35 @@ const numbers = [
 export function AboutUsPage() {
   return (
     <main className="relative overflow-hidden bg-[#061F46] text-white">
-      <section className="relative isolate px-5 pb-16 pt-28 sm:px-8 sm:pb-20 sm:pt-32 lg:px-[6vw]">
-        <div
+      <section className="relative isolate min-h-[46rem] overflow-hidden px-5 pb-24 pt-32 sm:min-h-[50rem] sm:px-8 sm:pb-28 sm:pt-36 lg:min-h-[max(100svh,56.28vw)] lg:px-[6vw] lg:pb-24 lg:pt-32">
+        <Image
+          alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(15,75,146,0.38),transparent_34%),radial-gradient(ellipse_at_14%_72%,rgba(15,75,146,0.22),transparent_28%),radial-gradient(ellipse_at_88%_58%,rgba(15,75,146,0.18),transparent_30%),linear-gradient(180deg,#061F46_0%,#082854_52%,#061F46_100%)]"
+          className="object-cover object-center"
+          fill
+          priority
+          sizes="100vw"
+          src="/images/about-us/about-bg.svg"
+          unoptimized
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#061F46] via-[#061F46]/88 to-transparent"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(1,15,42,0.2)_0%,rgba(1,15,42,0.08)_52%,rgba(1,15,42,0.22)_100%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(180deg,transparent_0%,rgba(6,31,70,0.62)_58%,#061F46_100%)]"
         />
 
-        <div className="relative mx-auto grid max-w-[1500px] gap-12 lg:grid-cols-[0.98fr_1.02fr] lg:items-end">
-          <div>
+        <div className="relative mx-auto max-w-[1620px] text-center">
+          <div className="mx-auto max-w-[1160px]">
             <SectionPill>About Tidewrk</SectionPill>
 
-            <h1 className="mt-8 max-w-5xl text-balance text-[3.5rem] font-semibold leading-[0.98] tracking-normal text-white sm:text-7xl lg:text-[6.2rem]">
+            <h1 className="mx-auto mt-8 max-w-5xl text-balance text-[3.5rem] font-semibold leading-[0.98] tracking-normal text-white sm:text-7xl lg:text-[6.2rem]">
               Built on three coasts.{" "}
               <span className="text-[#E98973]">Working inside your team.</span>
             </h1>
-          </div>
-
-          <div className="max-w-3xl lg:pb-3">
-            <p className="text-pretty text-xl leading-9 text-white/68 sm:text-2xl sm:leading-10">
+            <p className="mx-auto mt-7 max-w-4xl text-pretty text-xl leading-9 text-white/68 sm:text-2xl sm:leading-10">
               Tidewrk&apos;s roots run from Long Island to Charleston to the
               Philippines. We embed developers, operators, and support inside
               growing businesses, and we build so the people we hire have
