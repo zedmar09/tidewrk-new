@@ -24,6 +24,10 @@ export default function FreeUpYourTimePage() {
         "/images/build-your-product/tidewrk_how_it_works_step_05.svg",
       ]}
       planVariant="carousel"
+      problemArtwork="/images/free-up-your-time/free-up-your-time-sounds-familiar.svg"
+      problemArtworkAlt="An overloaded calendar and recurring task workflow ready to delegate"
+      problemArtworkHeight={1086}
+      problemArtworkWidth={1448}
       promisesArtwork={[
         "/images/promises/promise-workflow-icon.svg",
         "/images/promises/promise-user-approval-icon.svg",

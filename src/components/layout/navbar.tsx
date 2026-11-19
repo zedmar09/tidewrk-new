@@ -105,7 +105,7 @@ export function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-50 text-white transition-colors duration-300 ${
         isScrolled || isDropdownOpen
-          ? "border-b border-[#C8CCD0]/15 bg-[#010F2A] shadow-[0_12px_40px_rgba(1,8,24,0.45)]"
+          ? "border-b border-[#C8CCD0]/15 bg-[#091F70] shadow-[0_12px_40px_rgba(1,8,24,0.45)]"
           : "border-b border-[#C8CCD0]/15 bg-transparent"
       }`}
     >

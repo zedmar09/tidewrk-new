@@ -25,6 +25,10 @@ export default function RunYourBackOfficePage() {
         "/images/build-your-product/tidewrk_how_it_works_step_05.svg",
       ]}
       planVariant="carousel"
+      problemArtwork="/images/run-your-back-office/run-your-back-office-sounds-familiar.svg"
+      problemArtworkAlt="An operations workflow showing documented processes and backup coverage"
+      problemArtworkHeight={1024}
+      problemArtworkWidth={1536}
       promisesArtwork={[
         "/images/promises/promise-workflow-icon.svg",
         "/images/promises/promise-redundancy-icon.svg",

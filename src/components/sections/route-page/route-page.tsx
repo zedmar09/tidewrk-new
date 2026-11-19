@@ -64,6 +64,8 @@ export function RoutePage({
   planVariant = "default",
   problemArtwork,
   problemArtworkAlt,
+  problemArtworkHeight,
+  problemArtworkWidth,
   promisesArtwork,
   promisesVariant = "default",
   stakesVariant = "default",
@@ -78,6 +80,8 @@ export function RoutePage({
   planVariant?: "default" | "carousel";
   problemArtwork?: string;
   problemArtworkAlt?: string;
+  problemArtworkHeight?: number;
+  problemArtworkWidth?: number;
   promisesArtwork?: string[];
   promisesVariant?: "default" | "homepage";
   stakesVariant?: "default" | "comparison";
@@ -96,6 +100,8 @@ export function RoutePage({
           continuesHeroArtwork={Boolean(heroArtwork)}
           problemArtwork={problemArtwork}
           problemArtworkAlt={problemArtworkAlt}
+          problemArtworkHeight={problemArtworkHeight}
+          problemArtworkWidth={problemArtworkWidth}
         />
         <RouteGuide
           content={content}
@@ -274,11 +280,15 @@ function RouteProblem({
   continuesHeroArtwork = false,
   problemArtwork,
   problemArtworkAlt,
+  problemArtworkHeight = 815,
+  problemArtworkWidth = 1086,
 }: {
   content: RoutePageContent;
   continuesHeroArtwork?: boolean;
   problemArtwork?: string;
   problemArtworkAlt?: string;
+  problemArtworkHeight?: number;
+  problemArtworkWidth?: number;
 }) {
   const hasProblemArtwork = Boolean(
     problemArtwork && content.problemDisplay,
@@ -310,11 +320,11 @@ function RouteProblem({
                 "A product owner reviewing a software product plan and delivery workflow"
               }
               className="h-auto w-full object-contain"
-              height={815}
+              height={problemArtworkHeight}
               sizes="(min-width: 1024px) 54vw, 100vw"
               src={problemArtwork!}
               unoptimized
-              width={1086}
+              width={problemArtworkWidth}
             />
           </div>
         </div>

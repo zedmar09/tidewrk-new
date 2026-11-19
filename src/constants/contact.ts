@@ -26,6 +26,7 @@ export const contactLocations = [
     email: "info@tidewrk.com",
     addresses: [
       "5F PHINMA Plaza, 39 Plaza Drive, 8 Rockwell, Rockwell Center Makati City, Manila",
+      "Barangay Bibincahan, Sitio Baribag, Sorsogon City",
     ],
   },
 ];

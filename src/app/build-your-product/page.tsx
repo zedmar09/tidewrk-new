@@ -26,6 +26,8 @@ export default function BuildYourProductPage() {
       ]}
       planVariant="carousel"
       problemArtwork="/images/build-your-product/sound-familiar.svg"
+      problemArtworkHeight={1024}
+      problemArtworkWidth={1536}
       promisesVariant="homepage"
       stakesVariant="comparison"
     />
