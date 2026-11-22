@@ -24,7 +24,10 @@ const footerColumns = [
   },
   {
     title: "Capabilities",
-    links: [...capabilityItems],
+    links: capabilityItems.map(({ label }) => ({
+      label,
+      href: routes.capabilities,
+    })),
   },
   {
     title: "Company",
@@ -39,9 +42,9 @@ const footerColumns = [
   {
     title: "Legal",
     links: [
-      { label: "Privacy policy", href: routes.privacy },
-      { label: "Terms of service", href: routes.terms },
-      { label: "Cookie settings", href: routes.cookies },
+      { label: "Privacy policy", href: "#" },
+      { label: "Terms of service", href: "#" },
+      { label: "Cookie settings", href: "#" },
     ],
   },
 ];
@@ -116,7 +119,7 @@ export function Footer() {
               </p>
               <ul className="mt-4 space-y-3 text-sm text-white/80">
                 {column.links.map((link) => (
-                  <li key={link.href}>
+                  <li key={`${column.title}-${link.label}`}>
                     <Link
                       className="transition hover:text-white"
                       href={link.href}

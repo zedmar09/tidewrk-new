@@ -44,14 +44,16 @@ export function ContactPage() {
 
         <div className="relative z-10 mx-auto grid max-w-[1500px] gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-start lg:gap-16">
           <div className="rounded-[1.5rem] bg-[#0A2878]/68 p-5 backdrop-blur-xl sm:p-7 lg:p-8">
-            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-white/44">
-              Contact information
-            </p>
-            <p className="mt-4 text-base leading-8 text-white/60">
-              Prefer to reach us directly? Our regional details are below.
-            </p>
+            <div className="mb-7">
+              <h2 className="text-balance text-2xl font-semibold leading-tight text-white sm:text-3xl">
+                Contact information
+              </h2>
+              <p className="mt-3 max-w-2xl text-base leading-7 text-white/62">
+                Prefer to reach us directly? Our regional details are below.
+              </p>
+            </div>
 
-            <div className="mt-8 space-y-5">
+            <div className="space-y-5">
               {contactLocations.map((location) => (
                 <article
                   className="rounded-[1.2rem] border border-white/12 bg-[#0B2D80]/72 p-5"
